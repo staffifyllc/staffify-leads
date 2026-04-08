@@ -1364,6 +1364,62 @@
         .cnt-badge.gr { background: rgba(16,185,129,0.07); border-color: rgba(16,185,129,0.18); }
         .cnt-badge.gr .n { color: #10b981; }
 
+        /* ── PROMO BANNER ── */
+        .promo-banner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(90deg, #ff4d1c 0%, #ff6b35 50%, #ff4d1c 100%);
+            background-size: 200% 100%;
+            animation: promoSlide 3s linear infinite;
+            border-radius: 12px;
+            padding: 12px 24px;
+            margin-bottom: 36px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.1px;
+        }
+        @keyframes promoSlide {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        .promo-fire { font-size: 18px; }
+        .promo-divider { opacity: 0.5; }
+        .promo-deadline {
+            background: rgba(255,255,255,0.2);
+            border-radius: 6px;
+            padding: 2px 10px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        /* ── SLASHED / BONUS ── */
+        .pc-was {
+            font-size: 15px;
+            color: #a1a1a6;
+            text-decoration: line-through;
+            text-decoration-color: #ff4d1c;
+            text-decoration-thickness: 2px;
+            margin-bottom: 2px;
+        }
+        .pc.featured .pc-was { color: rgba(255,255,255,0.4); }
+        .pc-bonus {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(255,77,28,0.1);
+            border: 1px solid rgba(255,77,28,0.3);
+            border-radius: 20px;
+            padding: 3px 10px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #ff6b35;
+            margin-top: 6px;
+        }
+
         .pc-price {
             font-size: 50px;
             font-weight: 900;
@@ -2491,6 +2547,14 @@
         <span class="save-badge">Save 20%</span>
     </div>
 
+    <!-- PROMO BANNER -->
+    <div class="promo-banner">
+        <span class="promo-fire">🔥</span>
+        April Promo — 500 Bonus Leads + Save Up to $500
+        <span class="promo-divider">|</span>
+        <span class="promo-deadline">ENDS APR 30</span>
+    </div>
+
     <div class="pricing-cards">
 
         <!-- STARTER -->
@@ -2499,8 +2563,10 @@
             <div class="pc-pkg">Package A</div>
             <div class="pc-tier t-s">Starter</div>
             <div class="cnt-badge"><span class="n">1,500</span>&nbsp;Verified Contacts</div>
+            <div class="pc-was">$1,250 / campaign</div>
             <div class="pc-price pm">$1,000</div>
             <div class="pc-price pa">$800</div>
+            <div class="pc-bonus">🎁 +500 Leads FREE this month</div>
             <div style="font-size: 12px; color: #6e6e73; padding-top: 8px;">Setup Fee: <strong style="color: #1abde1;">$99</strong></div>
             <div class="pc-period">
                 <span class="pm">Per Campaign</span>
@@ -2529,8 +2595,10 @@
             <div class="pc-pkg">Package B</div>
             <div class="pc-tier t-g">Growth</div>
             <div class="cnt-badge"><span class="n">2,500</span>&nbsp;Verified Contacts</div>
-            <div class="pc-price pm">$1,750</div>
-            <div class="pc-price pa">$1,400</div>
+            <div class="pc-was">$2,500 / campaign</div>
+            <div class="pc-price pm">$2,000</div>
+            <div class="pc-price pa">$1,600</div>
+            <div class="pc-bonus">🎁 +500 Leads FREE this month</div>
             <div style="font-size: 12px; color: #6e6e73; padding-top: 8px;">Setup Fee: <strong style="color: #1abde1;">$250</strong></div>
             <div class="pc-period">
                 <span class="pm">Per Campaign</span>
@@ -2562,8 +2630,10 @@
             <div class="pc-pkg">Package C</div>
             <div class="pc-tier t-c">Scale</div>
             <div class="cnt-badge gr"><span class="n">5,000</span>&nbsp;Verified Contacts</div>
-            <div class="pc-price pm">$2,750</div>
-            <div class="pc-price pa">$2,200</div>
+            <div class="pc-was">$5,000 / campaign</div>
+            <div class="pc-price pm">$4,500</div>
+            <div class="pc-price pa">$3,600</div>
+            <div class="pc-bonus">🎁 +500 Leads FREE this month</div>
             <div style="font-size: 12px; color: #6e6e73; padding-top: 8px;">Setup Fee: <strong style="color: #1abde1;">$500</strong></div>
             <div class="pc-period">
                 <span class="pm">Per Campaign</span>
@@ -2660,8 +2730,8 @@ function toggleBilling(el) {
     // Prices: [monthly, annual]
     const prices = [
         ['$1,000', '$800'],
-        ['$1,750', '$1,400'],
-        ['$2,750', '$2,200'],
+        ['$2,000', '$1,600'],
+        ['$4,500', '$3,600'],
     ];
 
     const pmEls = [...document.querySelectorAll('.pc-price.pm')];
