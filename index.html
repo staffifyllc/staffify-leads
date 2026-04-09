@@ -1269,11 +1269,57 @@
 
         .pricing-cards {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             align-items: start;
+        }
+
+        /* Enterprise card */
+        .pc.enterprise {
+            background: linear-gradient(160deg, #0a0a0c 0%, #0d0d10 100%);
+            border: 1.5px solid rgba(255,255,255,0.1);
+            color: var(--white);
+        }
+        .pc.enterprise:hover {
+            border-color: rgba(26,189,225,0.3);
+            box-shadow: 0 12px 40px rgba(26,189,225,0.08);
+        }
+        .pc.enterprise .pc-tier { color: var(--white); }
+        .pc.enterprise .pc-pkg { color: rgba(255,255,255,0.4); }
+        .pc.enterprise .pc-period { color: rgba(255,255,255,0.35); }
+        .pc.enterprise .pc-divider { background: rgba(255,255,255,0.08); }
+        .pc.enterprise .pc-features li { color: rgba(255,255,255,0.7); }
+        .pc-price-custom {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            color: var(--white);
+            margin: 8px 0 4px;
+        }
+        .pc-campaign-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(26,189,225,0.08);
+            border: 1px solid rgba(26,189,225,0.18);
+            border-radius: 20px;
+            padding: 3px 10px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--c);
+            margin-top: 8px;
+            margin-bottom: 2px;
+        }
+        .pc.featured .pc-campaign-tag {
+            background: rgba(26,189,225,0.12);
+            border-color: rgba(26,189,225,0.3);
+        }
+        .pc.enterprise .pc-campaign-tag {
+            background: rgba(26,189,225,0.08);
+            border-color: rgba(26,189,225,0.2);
         }
 
         .pc {
@@ -2562,6 +2608,7 @@
             <div class="pc-icon ic-s">✉️</div>
             <div class="pc-pkg">Package A</div>
             <div class="pc-tier t-s">Starter</div>
+            <div class="pc-campaign-tag">Up to 1 Campaign</div>
             <div class="cnt-badge"><s style="color:#a1a1a6;text-decoration-color:#ff4d1c;">1,000</s>&nbsp;→&nbsp;<span class="n">1,500</span>&nbsp;Verified Contacts</div>
             <div class="pc-price pm">$1,000</div>
             <div class="pc-price pa">$800</div>
@@ -2593,6 +2640,7 @@
             <div class="pc-icon ic-g">📈</div>
             <div class="pc-pkg">Package B</div>
             <div class="pc-tier t-g">Growth</div>
+            <div class="pc-campaign-tag">Up to 2 Campaigns</div>
             <div class="cnt-badge"><s style="color:#a1a1a6;text-decoration-color:#ff4d1c;">2,000</s>&nbsp;→&nbsp;<span class="n">2,500</span>&nbsp;Verified Contacts</div>
             <div class="pc-price pm">$1,750</div>
             <div class="pc-price pa">$1,400</div>
@@ -2627,6 +2675,7 @@
             <div class="pc-icon ic-c">🚀</div>
             <div class="pc-pkg">Package C</div>
             <div class="pc-tier t-c">Scale</div>
+            <div class="pc-campaign-tag">Up to 3 Campaigns</div>
             <div class="cnt-badge gr"><s style="color:#a1a1a6;text-decoration-color:#ff4d1c;">4,500</s>&nbsp;→&nbsp;<span class="n">5,000</span>&nbsp;Verified Contacts</div>
             <div class="pc-price pm">$2,750</div>
             <div class="pc-price pa">$2,200</div>
@@ -2654,6 +2703,30 @@
                 <li><span class="ckg">✓</span> Assembly Support Hub</li>
             </ul>
             <a href="https://buy.stripe.com/dRm9AU4Hu1EX61F1a2fIs0t" class="pc-cta cta-c" target="_blank" rel="noopener noreferrer">Get Started →</a>
+        </div>
+
+        <!-- ENTERPRISE -->
+        <div class="pc enterprise">
+            <div class="pc-icon ic-c">🏢</div>
+            <div class="pc-pkg">Package D</div>
+            <div class="pc-tier t-c">Enterprise</div>
+            <div class="pc-campaign-tag">Unlimited Campaigns</div>
+            <div class="pc-price-custom">Custom Pricing</div>
+            <div style="font-size: 12px; color: rgba(255,255,255,0.35); padding-top: 4px; margin-bottom: 16px;">Tailored to your team & volume</div>
+            <div class="pc-divider"></div>
+            <ul class="pc-features">
+                <li><span class="ckg">✓</span> Everything in Scale</li>
+                <li><span class="ckg">✓</span> Unlimited Simultaneous Campaigns</li>
+                <li><span class="ckg">✓</span> Custom Contact Volume</li>
+                <li><span class="ckg">✓</span> Dedicated Account Executive</li>
+                <li><span class="ckg">✓</span> Custom ICP Strategy Session</li>
+                <li><span class="ckg">✓</span> Priority Support & SLA</li>
+                <li><span class="ckg">✓</span> Multi-Market Targeting</li>
+                <li><span class="ckg">✓</span> Custom Reporting Dashboard</li>
+                <li><span class="ckg">✓</span> White-Label Available</li>
+                <li><span class="ckg">✓</span> Quarterly Business Reviews</li>
+            </ul>
+            <a href="mailto:hello@gostaffify.com" class="pc-cta cta-s" style="text-align:center;">Let's Talk →</a>
         </div>
 
     </div>
