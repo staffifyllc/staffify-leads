@@ -814,6 +814,7 @@
             width: 90%;
             padding: 24px;
         }
+        /* ── CONTACT CARD ANIMATIONS ── */
         .vis-icp-row {
             display: flex;
             align-items: center;
@@ -823,11 +824,68 @@
             border-radius: 12px;
             padding: 12px 16px;
             margin-bottom: 10px;
+            opacity: 0;
+            transform: translateX(-16px);
+            transition: opacity .5s ease, transform .5s ease;
+        }
+        .vis-icp-row.animate-in {
+            opacity: 1;
+            transform: translateX(0);
         }
         .vis-icp-row.highlight {
             background: rgba(26,189,225,0.08);
             border-color: rgba(26,189,225,0.22);
         }
+        .chip-v.flash {
+            animation: chipFlash 1s ease forwards;
+        }
+        @keyframes chipFlash {
+            0%   { background: rgba(26,189,225,0.05); color: transparent; }
+            40%  { background: rgba(26,189,225,0.35); color: #1abde1; box-shadow: 0 0 10px rgba(26,189,225,0.5); }
+            100% { background: rgba(26,189,225,0.12); color: var(--c); }
+        }
+
+        /* ── EMAIL SEND ANIMATIONS ── */
+        .vis-env {
+            width: 32px; height: 32px; border-radius: 8px;
+            background: rgba(26,189,225,0.1);
+            border: 1px solid rgba(26,189,225,0.22);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; flex-shrink: 0;
+            opacity: 0;
+            transform: scale(0.7);
+            transition: opacity .3s, transform .3s;
+        }
+        .vis-env.pop {
+            opacity: 1;
+            transform: scale(1);
+            animation: envPulse .4s ease;
+        }
+        @keyframes envPulse {
+            0%   { box-shadow: 0 0 0 0 rgba(26,189,225,0.6); }
+            50%  { box-shadow: 0 0 0 6px rgba(26,189,225,0.15); }
+            100% { box-shadow: 0 0 0 0 rgba(26,189,225,0); }
+        }
+        .vis-line {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(26,189,225,0.3), rgba(26,189,225,0.05));
+            margin: 0 4px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .3s ease;
+        }
+        .vis-line.draw { transform: scaleX(1); }
+
+        /* ── DASHBOARD BAR ANIMATIONS ── */
+        .vdb-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--c), var(--c3));
+            border-radius: 4px;
+            width: 0 !important;
+            transition: width 1.2s cubic-bezier(.4,0,.2,1);
+        }
+        .vdb-fill.filled { width: var(--target-width) !important; }
         .vis-av {
             width: 32px; height: 32px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
@@ -853,19 +911,7 @@
             gap: 0;
             margin-bottom: 16px;
         }
-        .vis-env {
-            width: 32px; height: 32px; border-radius: 8px;
-            background: rgba(26,189,225,0.1);
-            border: 1px solid rgba(26,189,225,0.22);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 14px; flex-shrink: 0;
-        }
-        .vis-line {
-            flex: 1;
-            height: 2px;
-            background: linear-gradient(90deg, rgba(26,189,225,0.3), rgba(26,189,225,0.05));
-            margin: 0 4px;
-        }
+        .vis-metrics {
         .vis-metrics {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -979,6 +1025,137 @@
             height: 24px;
             background: linear-gradient(to bottom, rgba(26,189,225,0.3), rgba(26,189,225,0.1));
             margin: 0 0 0 34px;
+        }
+
+        /* ── LIVE DASHBOARD PREVIEW ── */
+        .dash-preview-section {
+            background: #030307;
+            padding: 120px 40px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .dash-preview-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Ticker cards */
+        .dash-ticker {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+        .dt-card {
+            background: #0c0f1a;
+            border: 1px solid rgba(26,189,225,0.12);
+            border-radius: 16px;
+            padding: 20px 28px;
+            min-width: 130px;
+            position: relative;
+            overflow: hidden;
+        }
+        .dt-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(26,189,225,0.04), transparent);
+        }
+        .dt-pulse {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--c);
+            box-shadow: 0 0 8px rgba(26,189,225,0.6);
+            margin: 0 auto 10px;
+            animation: dtPulse 1.5s ease-in-out infinite;
+        }
+        @keyframes dtPulse {
+            0%,100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.6; }
+        }
+        .dt-val {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            color: var(--c);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+        .dt-lbl {
+            font-size: 11px;
+            color: #64748b;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Browser chrome */
+        .dash-browser {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 40px 120px rgba(0,0,0,0.6), 0 0 0 1px rgba(26,189,225,0.08);
+        }
+        .dash-browser-bar {
+            background: #1a1a2e;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .dbb-dots { display: flex; gap: 6px; }
+        .dbb-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dbb-url {
+            flex: 1;
+            background: rgba(255,255,255,0.06);
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: 11px;
+            color: #94a3b8;
+            text-align: left;
+        }
+        .dbb-live {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #22c55e;
+        }
+        .dbb-live-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #22c55e;
+            animation: dtPulse 1.5s infinite;
+        }
+        .dash-browser-body {
+            position: relative;
+            height: 680px;
+        }
+        .dash-browser-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+        .dash-browser-hint {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to top, rgba(3,3,7,0.95), transparent);
+            padding: 32px 20px 16px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            pointer-events: none;
+        }
+
+        @media (max-width: 900px) {
+            .dash-preview-section { padding: 80px 20px; }
+            .dash-ticker { gap: 10px; }
+            .dt-card { min-width: 70px; padding: 14px 12px; }
+            .dt-val { font-size: 22px; }
+            .dash-browser-body { height: 500px; }
         }
 
         /* ── CASE STUDIES ── */
@@ -2513,6 +2690,73 @@
 
 </div>
 
+<!-- ═══ LIVE DASHBOARD PREVIEW ═══ -->
+<div id="demo" class="dash-preview-section">
+    <div class="dash-preview-inner">
+        <div class="section-label" style="color:var(--c);">Live Dashboard</div>
+        <h2 class="section-title" style="color:#fff;">
+            See exactly what you get.<br>
+            <span class="g">Before you spend a dollar.</span>
+        </h2>
+        <p class="section-sub" style="color:rgba(255,255,255,0.45);margin-bottom:40px;">
+            This is a real client dashboard — live data, real UX. Interact with it yourself.
+        </p>
+
+        <!-- Animated stat ticker row -->
+        <div class="dash-ticker">
+            <div class="dt-card">
+                <div class="dt-pulse"></div>
+                <div class="dt-val" id="tick-sent">0</div>
+                <div class="dt-lbl">Emails Sent</div>
+            </div>
+            <div class="dt-card">
+                <div class="dt-pulse" style="background:#06b6d4;box-shadow:0 0 8px rgba(6,182,212,0.5);"></div>
+                <div class="dt-val" id="tick-opens" style="color:#38bdf8;">0</div>
+                <div class="dt-lbl">Opens</div>
+            </div>
+            <div class="dt-card">
+                <div class="dt-pulse" style="background:#6366f1;box-shadow:0 0 8px rgba(99,102,241,0.5);"></div>
+                <div class="dt-val" id="tick-replies" style="color:#818cf8;">0</div>
+                <div class="dt-lbl">Replies</div>
+            </div>
+            <div class="dt-card">
+                <div class="dt-pulse" style="background:#10b981;box-shadow:0 0 8px rgba(16,185,129,0.5);"></div>
+                <div class="dt-val" id="tick-interested" style="color:#34d399;">0</div>
+                <div class="dt-lbl">Interested</div>
+            </div>
+        </div>
+
+        <!-- Browser chrome + iframe -->
+        <div class="dash-browser">
+            <div class="dash-browser-bar">
+                <div class="dbb-dots">
+                    <span class="dbb-dot" style="background:#ff5f56;"></span>
+                    <span class="dbb-dot" style="background:#ffbd2e;"></span>
+                    <span class="dbb-dot" style="background:#27c93f;"></span>
+                </div>
+                <div class="dbb-url">
+                    <span style="color:#64748b;">🔒</span>&nbsp;campaign-dashboard-green.vercel.app
+                </div>
+                <div class="dbb-live">
+                    <span class="dbb-live-dot"></span> Live
+                </div>
+            </div>
+            <div class="dash-browser-body">
+                <iframe
+                    src="https://campaign-dashboard-green.vercel.app/c/demo-sample-dashboard-2026"
+                    frameborder="0"
+                    loading="lazy"
+                    allowtransparency="true"
+                    title="Staffify Live Campaign Dashboard Demo">
+                </iframe>
+                <div class="dash-browser-hint">
+                    👆 This is your real-time dashboard — scroll and interact with it
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- ═══ CASE STUDIES ═══ -->
 <div id="results" class="case-section">
     <div class="case-inner">
@@ -2802,6 +3046,109 @@
 </footer>
 
 <script>
+/* ── FEATURE CARD ANIMATIONS ── */
+(function() {
+    // Contact card slide-in
+    function initContactCards() {
+        const rows = document.querySelectorAll('.vis-icp-row');
+        const io = new IntersectionObserver(entries => {
+            if (!entries[0].isIntersecting) return;
+            io.disconnect();
+            rows.forEach((row, i) => {
+                setTimeout(() => {
+                    row.classList.add('animate-in');
+                    // Flash the verified chip
+                    const chip = row.querySelector('.chip-v');
+                    if (chip) setTimeout(() => chip.classList.add('flash'), 200);
+                }, i * 280);
+            });
+        }, { threshold: 0.4 });
+        if (rows.length) io.observe(rows[0].closest('.feat-visual') || rows[0]);
+    }
+
+    // Email envelope pop
+    function initEmailEnvelopes() {
+        const envs = document.querySelectorAll('.vis-env');
+        const lines = document.querySelectorAll('.vis-line');
+        const io = new IntersectionObserver(entries => {
+            if (!entries[0].isIntersecting) return;
+            io.disconnect();
+            envs.forEach((env, i) => {
+                setTimeout(() => {
+                    env.classList.add('pop');
+                    if (lines[i]) setTimeout(() => lines[i].classList.add('draw'), 80);
+                }, i * 180);
+            });
+        }, { threshold: 0.4 });
+        const emailVis = document.querySelector('.vis-email');
+        if (emailVis) io.observe(emailVis);
+    }
+
+    initContactCards();
+    initEmailEnvelopes();
+})();
+
+/* ── LIVE DASHBOARD TICKER ── */
+(function() {
+    const targets = { sent: 847, opens: 287, replies: 61, interested: 14 };
+    const tickEls = {
+        sent: document.getElementById('tick-sent'),
+        opens: document.getElementById('tick-opens'),
+        replies: document.getElementById('tick-replies'),
+        interested: document.getElementById('tick-interested'),
+    };
+    const current = { sent: 0, opens: 0, replies: 0, interested: 0 };
+    let running = false;
+
+    function startTicker() {
+        if (running) return;
+        running = true;
+        const keys = ['sent', 'opens', 'replies', 'interested'];
+        const DURATION = 2200;
+        const ease = t => t < .5 ? 2*t*t : -1+(4-2*t)*t;
+        const start = performance.now();
+        function tick(now) {
+            const p = Math.min((now - start) / DURATION, 1);
+            const e = ease(p);
+            keys.forEach(k => {
+                const val = Math.round(targets[k] * e);
+                if (val !== current[k]) {
+                    current[k] = val;
+                    if (tickEls[k]) tickEls[k].textContent = val.toLocaleString();
+                }
+            });
+            if (p < 1) requestAnimationFrame(tick);
+            else {
+                // After count-up, randomly increment to simulate live data
+                setTimeout(simulateLive, 3000);
+            }
+        }
+        requestAnimationFrame(tick);
+    }
+
+    function simulateLive() {
+        // Randomly tick sent up every few seconds
+        const bump = () => {
+            const k = Math.random() < 0.7 ? 'sent' : (Math.random() < 0.5 ? 'opens' : 'replies');
+            current[k]++;
+            if (tickEls[k]) {
+                tickEls[k].textContent = current[k].toLocaleString();
+                tickEls[k].style.transform = 'scale(1.15)';
+                tickEls[k].style.transition = 'transform .15s';
+                setTimeout(() => { tickEls[k].style.transform = 'scale(1)'; }, 150);
+            }
+            setTimeout(bump, 1800 + Math.random() * 3000);
+        };
+        bump();
+    }
+
+    const io = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) { startTicker(); io.disconnect(); }
+    }, { threshold: 0.3 });
+    const demo = document.getElementById('demo');
+    if (demo) io.observe(demo);
+})();
+
 /* ── BILLING TOGGLE ── */
 function splitFlap(el, newText, done) {
     // Wrap each char in a span if not already done
