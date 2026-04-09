@@ -814,7 +814,6 @@
             width: 90%;
             padding: 24px;
         }
-        /* ── CONTACT CARD ANIMATIONS ── */
         .vis-icp-row {
             display: flex;
             align-items: center;
@@ -824,68 +823,11 @@
             border-radius: 12px;
             padding: 12px 16px;
             margin-bottom: 10px;
-            opacity: 0;
-            transform: translateX(-16px);
-            transition: opacity .5s ease, transform .5s ease;
-        }
-        .vis-icp-row.animate-in {
-            opacity: 1;
-            transform: translateX(0);
         }
         .vis-icp-row.highlight {
             background: rgba(26,189,225,0.08);
             border-color: rgba(26,189,225,0.22);
         }
-        .chip-v.flash {
-            animation: chipFlash 1s ease forwards;
-        }
-        @keyframes chipFlash {
-            0%   { background: rgba(26,189,225,0.05); color: transparent; }
-            40%  { background: rgba(26,189,225,0.35); color: #1abde1; box-shadow: 0 0 10px rgba(26,189,225,0.5); }
-            100% { background: rgba(26,189,225,0.12); color: var(--c); }
-        }
-
-        /* ── EMAIL SEND ANIMATIONS ── */
-        .vis-env {
-            width: 32px; height: 32px; border-radius: 8px;
-            background: rgba(26,189,225,0.1);
-            border: 1px solid rgba(26,189,225,0.22);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 14px; flex-shrink: 0;
-            opacity: 0;
-            transform: scale(0.7);
-            transition: opacity .3s, transform .3s;
-        }
-        .vis-env.pop {
-            opacity: 1;
-            transform: scale(1);
-            animation: envPulse .4s ease;
-        }
-        @keyframes envPulse {
-            0%   { box-shadow: 0 0 0 0 rgba(26,189,225,0.6); }
-            50%  { box-shadow: 0 0 0 6px rgba(26,189,225,0.15); }
-            100% { box-shadow: 0 0 0 0 rgba(26,189,225,0); }
-        }
-        .vis-line {
-            flex: 1;
-            height: 2px;
-            background: linear-gradient(90deg, rgba(26,189,225,0.3), rgba(26,189,225,0.05));
-            margin: 0 4px;
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform .3s ease;
-        }
-        .vis-line.draw { transform: scaleX(1); }
-
-        /* ── DASHBOARD BAR ANIMATIONS ── */
-        .vdb-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--c), var(--c3));
-            border-radius: 4px;
-            width: 0 !important;
-            transition: width 1.2s cubic-bezier(.4,0,.2,1);
-        }
-        .vdb-fill.filled { width: var(--target-width) !important; }
         .vis-av {
             width: 32px; height: 32px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
@@ -911,7 +853,19 @@
             gap: 0;
             margin-bottom: 16px;
         }
-        .vis-metrics {
+        .vis-env {
+            width: 32px; height: 32px; border-radius: 8px;
+            background: rgba(26,189,225,0.1);
+            border: 1px solid rgba(26,189,225,0.22);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; flex-shrink: 0;
+        }
+        .vis-line {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(26,189,225,0.3), rgba(26,189,225,0.05));
+            margin: 0 4px;
+        }
         .vis-metrics {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1025,191 +979,6 @@
             height: 24px;
             background: linear-gradient(to bottom, rgba(26,189,225,0.3), rgba(26,189,225,0.1));
             margin: 0 0 0 34px;
-        }
-
-        /* ── LIVE DASHBOARD PREVIEW ── */
-        .dash-preview-section {
-            background: #060609;
-            padding: 120px 40px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        .dash-preview-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        /* Dashboard mockup */
-        .dmock {
-            background: #0b0e18;
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(26,189,225,0.06);
-            text-align: left;
-        }
-
-        /* Header */
-        .dmock-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 28px;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            background: #0d1120;
-        }
-        .dmock-client { display: flex; align-items: center; gap: 14px; }
-        .dmock-av {
-            width: 40px; height: 40px; border-radius: 50%;
-            background: rgba(26,189,225,0.15); color: #1abde1;
-            font-size: 13px; font-weight: 800;
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
-        }
-        .dmock-name { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 3px; }
-        .dmock-sub { font-size: 12px; color: #64748b; display: flex; align-items: center; gap: 6px; }
-        .dmock-live-badge {
-            display: inline-flex; align-items: center; gap: 4px;
-            background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.25);
-            border-radius: 20px; padding: 2px 8px;
-            font-size: 11px; font-weight: 700; color: #22c55e;
-        }
-        .dmock-live-dot {
-            width: 6px; height: 6px; border-radius: 50%; background: #22c55e;
-            animation: dmLivePulse 1.5s infinite;
-        }
-        @keyframes dmLivePulse {
-            0%,100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(1.3); }
-        }
-        .dmock-sync {
-            display: flex; align-items: center; gap: 6px;
-            font-size: 11px; color: #475569;
-        }
-        .dmock-sync-dot {
-            width: 6px; height: 6px; border-radius: 50%; background: #22c55e;
-            animation: dmLivePulse 2s infinite;
-        }
-
-        /* Stat cards */
-        .dmock-stats {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 0;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-        }
-        .dmock-stat {
-            padding: 20px 20px;
-            border-right: 1px solid rgba(255,255,255,0.05);
-        }
-        .dmock-stat:last-child { border-right: none; }
-        .dmock-stat-lbl { font-size: 11px; color: #64748b; margin-bottom: 6px; }
-        .dmock-stat-val {
-            font-size: 26px; font-weight: 800; letter-spacing: -0.5px; color: #fff;
-            transition: transform .15s;
-        }
-        .dmock-stat-val.sky { color: #38bdf8; }
-        .dmock-stat-val.indigo { color: #818cf8; }
-        .dmock-stat-val.green { color: #34d399; }
-
-        /* Body */
-        .dmock-body {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0;
-        }
-        .dmock-panel {
-            background: #0b0e18;
-            border-radius: 12px;
-            padding: 20px;
-        }
-        .dmock-panel-title {
-            font-size: 11px; font-weight: 700; color: #475569;
-            letter-spacing: 0.8px; text-transform: uppercase;
-            margin-bottom: 16px;
-        }
-
-        /* Funnel bars */
-        .dmock-funnel { display: flex; flex-direction: column; gap: 10px; }
-        .dmf-row { display: flex; align-items: center; gap: 10px; }
-        .dmf-label { width: 64px; font-size: 12px; color: #64748b; flex-shrink: 0; }
-        .dmf-track {
-            flex: 1; height: 28px; background: #111827;
-            border-radius: 6px; overflow: hidden; position: relative;
-        }
-        .dmf-bar {
-            height: 100%; border-radius: 6px;
-            width: 0;
-            transition: width 1.4s cubic-bezier(.4,0,.2,1);
-        }
-        .dmf-bar.sky     { background: linear-gradient(90deg, #0ea5e9, #38bdf8); }
-        .dmf-bar.cyan    { background: linear-gradient(90deg, #0891b2, #06b6d4); }
-        .dmf-bar.indigo  { background: linear-gradient(90deg, #4f46e5, #818cf8); }
-        .dmf-bar.green   { background: linear-gradient(90deg, #059669, #10b981); }
-        .dmf-bar.emerald { background: linear-gradient(90deg, #047857, #34d399); }
-        .dmf-info {
-            position: absolute; inset: 0; display: flex; align-items: center;
-            padding: 0 10px; font-size: 11px; font-weight: 600; color: #fff;
-        }
-
-        /* Right column */
-        .dmock-right {
-            border-left: 1px solid rgba(255,255,255,0.05);
-            display: flex; flex-direction: column; gap: 0;
-        }
-        .dmock-rates {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-        }
-        .dmr-card {
-            background: #111827; border-radius: 10px; padding: 14px;
-        }
-        .dmr-val {
-            font-size: 20px; font-weight: 800; letter-spacing: -0.5px;
-            margin-bottom: 3px;
-        }
-        .dmr-val.green  { color: #34d399; }
-        .dmr-val.white  { color: #fff; }
-        .dmr-lbl { font-size: 11px; color: #64748b; margin-bottom: 3px; }
-        .dmr-bench { font-size: 10px; }
-        .dmr-bench.good { color: #34d399; }
-
-        /* Reply feed */
-        .dmock-reply-feed {
-            padding: 20px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            flex: 1;
-        }
-        .dmr-reply {
-            display: flex; align-items: flex-start; gap: 10px;
-            background: #111827; border-radius: 10px;
-            padding: 12px 14px; margin-bottom: 8px;
-        }
-        .dmr-avatar {
-            width: 32px; height: 32px; border-radius: 50%;
-            background: rgba(26,189,225,0.12); color: #1abde1;
-            font-size: 11px; font-weight: 700;
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
-        }
-        .dmr-body { flex: 1; min-width: 0; }
-        .dmr-from {
-            font-size: 12px; font-weight: 600; color: #fff;
-            display: flex; align-items: center; gap: 6px; margin-bottom: 3px;
-        }
-        .dmr-tag {
-            font-size: 9px; padding: 1px 6px; border-radius: 4px;
-            font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase;
-        }
-        .dmr-tag.human { background: rgba(99,102,241,0.2); color: #818cf8; }
-        .dmr-preview { font-size: 11px; color: #64748b; }
-        .dmr-time { font-size: 10px; color: #334155; flex-shrink: 0; }
-
-        @media (max-width: 900px) {
-            .dash-preview-section { padding: 80px 20px; }
-            .dmock-stats { grid-template-columns: repeat(3,1fr); }
-            .dmock-body { grid-template-columns: 1fr; }
-            .dmock-right { border-left: none; border-top: 1px solid rgba(255,255,255,0.05); }
         }
 
         /* ── CASE STUDIES ── */
@@ -2744,166 +2513,6 @@
 
 </div>
 
-<!-- ═══ LIVE DASHBOARD PREVIEW ═══ -->
-<div id="demo" class="dash-preview-section">
-    <div class="dash-preview-inner">
-        <div class="section-label" style="color:var(--c);">Your Dashboard</div>
-        <h2 class="section-title" style="color:#fff;">
-            Full visibility into<br>
-            <span class="g">every campaign.</span>
-        </h2>
-        <p class="section-sub" style="color:rgba(255,255,255,0.45);margin-bottom:56px;">
-            Every client gets a live performance dashboard. Track opens, replies, pipeline — in real time.
-        </p>
-
-        <div class="dmock">
-            <!-- Header bar -->
-            <div class="dmock-header">
-                <div class="dmock-client">
-                    <div class="dmock-av">EG</div>
-                    <div>
-                        <div class="dmock-name">Evergreen Grounds Co.</div>
-                        <div class="dmock-sub">1 campaign · <span class="dmock-live-badge"><span class="dmock-live-dot"></span>Active</span></div>
-                    </div>
-                </div>
-                <div class="dmock-sync">
-                    <span class="dmock-sync-dot"></span>
-                    Live · refreshes every 60s
-                </div>
-            </div>
-
-            <!-- Stat cards row -->
-            <div class="dmock-stats">
-                <div class="dmock-stat">
-                    <div class="dmock-stat-lbl">Total Leads</div>
-                    <div class="dmock-stat-val" id="dm-leads">0</div>
-                </div>
-                <div class="dmock-stat">
-                    <div class="dmock-stat-lbl">Sent</div>
-                    <div class="dmock-stat-val sky" id="dm-sent">0</div>
-                </div>
-                <div class="dmock-stat">
-                    <div class="dmock-stat-lbl">Opens</div>
-                    <div class="dmock-stat-val sky" id="dm-opens">0</div>
-                </div>
-                <div class="dmock-stat">
-                    <div class="dmock-stat-lbl">Replies</div>
-                    <div class="dmock-stat-val indigo" id="dm-replies">0</div>
-                </div>
-                <div class="dmock-stat">
-                    <div class="dmock-stat-lbl">Interested</div>
-                    <div class="dmock-stat-val green" id="dm-interested">0</div>
-                </div>
-                <div class="dmock-stat">
-                    <div class="dmock-stat-lbl">Meetings</div>
-                    <div class="dmock-stat-val green" id="dm-meetings">0</div>
-                </div>
-            </div>
-
-            <!-- Two-column: funnel + rates -->
-            <div class="dmock-body">
-                <!-- Funnel -->
-                <div class="dmock-panel">
-                    <div class="dmock-panel-title">Conversion Funnel</div>
-                    <div class="dmock-funnel">
-                        <div class="dmf-row">
-                            <div class="dmf-label">Sent</div>
-                            <div class="dmf-track"><div class="dmf-bar sky" style="--w:100%"></div><div class="dmf-info">847 · 100%</div></div>
-                        </div>
-                        <div class="dmf-row">
-                            <div class="dmf-label">Opens</div>
-                            <div class="dmf-track"><div class="dmf-bar cyan" style="--w:34%"></div><div class="dmf-info">287 · 33.9%</div></div>
-                        </div>
-                        <div class="dmf-row">
-                            <div class="dmf-label">Replies</div>
-                            <div class="dmf-track"><div class="dmf-bar indigo" style="--w:7%"></div><div class="dmf-info">61 · 7.2%</div></div>
-                        </div>
-                        <div class="dmf-row">
-                            <div class="dmf-label">Interested</div>
-                            <div class="dmf-track"><div class="dmf-bar green" style="--w:2%"></div><div class="dmf-info">14 · 1.7%</div></div>
-                        </div>
-                        <div class="dmf-row">
-                            <div class="dmf-label">Meetings</div>
-                            <div class="dmf-track"><div class="dmf-bar emerald" style="--w:1%"></div><div class="dmf-info">8 · 0.9%</div></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Key rates + campaign health -->
-                <div class="dmock-right">
-                    <div class="dmock-panel">
-                        <div class="dmock-panel-title">Key Rates</div>
-                        <div class="dmock-rates">
-                            <div class="dmr-card">
-                                <div class="dmr-val green" id="dm-openrate">0%</div>
-                                <div class="dmr-lbl">Open Rate</div>
-                                <div class="dmr-bench good">↑ above avg (22%)</div>
-                            </div>
-                            <div class="dmr-card">
-                                <div class="dmr-val green" id="dm-replyrate">0%</div>
-                                <div class="dmr-lbl">Reply Rate</div>
-                                <div class="dmr-bench good">↑ above avg (2%)</div>
-                            </div>
-                            <div class="dmr-card">
-                                <div class="dmr-val green">1.1%</div>
-                                <div class="dmr-lbl">Bounce Rate</div>
-                                <div class="dmr-bench good">✓ healthy</div>
-                            </div>
-                            <div class="dmr-card">
-                                <div class="dmr-val green">0.00%</div>
-                                <div class="dmr-lbl">Unsubscribe</div>
-                                <div class="dmr-bench good">✓ healthy</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dmock-panel" style="margin-top:12px;">
-                        <div class="dmock-panel-title">Campaign Health</div>
-                        <div class="dmock-rates">
-                            <div class="dmr-card">
-                                <div class="dmr-val white">18</div>
-                                <div class="dmr-lbl">Days Active</div>
-                            </div>
-                            <div class="dmr-card">
-                                <div class="dmr-val white">47</div>
-                                <div class="dmr-lbl">Avg Daily Sends</div>
-                            </div>
-                            <div class="dmr-card">
-                                <div class="dmr-val white">Today</div>
-                                <div class="dmr-lbl">Last Activity</div>
-                            </div>
-                            <div class="dmr-card">
-                                <div class="dmr-val white" style="font-size:13px;">May 7</div>
-                                <div class="dmr-lbl">Est. Completion</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Live reply notification -->
-                    <div class="dmock-reply-feed">
-                        <div class="dmock-panel-title">Recent Replies</div>
-                        <div class="dmr-reply" id="dmr-r1">
-                            <div class="dmr-avatar">JT</div>
-                            <div class="dmr-body">
-                                <div class="dmr-from">James Thornton <span class="dmr-tag human">human</span></div>
-                                <div class="dmr-preview">Hey, I'm interested — can we set up a quick call?</div>
-                            </div>
-                            <div class="dmr-time">2m ago</div>
-                        </div>
-                        <div class="dmr-reply" id="dmr-r2" style="opacity:0;transform:translateY(8px);transition:all .5s .4s;">
-                            <div class="dmr-avatar" style="background:rgba(99,102,241,0.15);color:#818cf8;">MR</div>
-                            <div class="dmr-body">
-                                <div class="dmr-from">Maria Rodriguez <span class="dmr-tag human">human</span></div>
-                                <div class="dmr-preview">We've been looking for exactly this. Send over details.</div>
-                            </div>
-                            <div class="dmr-time">14m ago</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- ═══ CASE STUDIES ═══ -->
 <div id="results" class="case-section">
     <div class="case-inner">
@@ -3193,135 +2802,6 @@
 </footer>
 
 <script>
-/* ── FEATURE CARD ANIMATIONS ── */
-(function() {
-    // Contact card slide-in
-    function initContactCards() {
-        const rows = document.querySelectorAll('.vis-icp-row');
-        const io = new IntersectionObserver(entries => {
-            if (!entries[0].isIntersecting) return;
-            io.disconnect();
-            rows.forEach((row, i) => {
-                setTimeout(() => {
-                    row.classList.add('animate-in');
-                    // Flash the verified chip
-                    const chip = row.querySelector('.chip-v');
-                    if (chip) setTimeout(() => chip.classList.add('flash'), 200);
-                }, i * 280);
-            });
-        }, { threshold: 0.4 });
-        if (rows.length) io.observe(rows[0].closest('.feat-visual') || rows[0]);
-    }
-
-    // Email envelope pop
-    function initEmailEnvelopes() {
-        const envs = document.querySelectorAll('.vis-env');
-        const lines = document.querySelectorAll('.vis-line');
-        const io = new IntersectionObserver(entries => {
-            if (!entries[0].isIntersecting) return;
-            io.disconnect();
-            envs.forEach((env, i) => {
-                setTimeout(() => {
-                    env.classList.add('pop');
-                    if (lines[i]) setTimeout(() => lines[i].classList.add('draw'), 80);
-                }, i * 180);
-            });
-        }, { threshold: 0.4 });
-        const emailVis = document.querySelector('.vis-email');
-        if (emailVis) io.observe(emailVis);
-    }
-
-    initContactCards();
-    initEmailEnvelopes();
-})();
-
-/* ── DASHBOARD MOCKUP ANIMATIONS ── */
-(function() {
-    const ease = t => t < .5 ? 2*t*t : -1+(4-2*t)*t;
-    const DURATION = 2000;
-
-    const statTargets = {
-        'dm-leads': 2496, 'dm-sent': 847, 'dm-opens': 287,
-        'dm-replies': 61, 'dm-interested': 14, 'dm-meetings': 8
-    };
-    const rateTargets = {
-        'dm-openrate': 33.9, 'dm-replyrate': 7.2
-    };
-
-    function bump(el) {
-        el.style.transform = 'scale(1.12)';
-        setTimeout(() => { el.style.transform = 'scale(1)'; }, 150);
-    }
-
-    function runMockup() {
-        const start = performance.now();
-        const current = {};
-        Object.keys(statTargets).forEach(k => current[k] = 0);
-
-        // Count up stats
-        function tick(now) {
-            const p = Math.min((now - start) / DURATION, 1);
-            const e = ease(p);
-            Object.entries(statTargets).forEach(([id, target]) => {
-                const val = Math.round(target * e);
-                if (val !== current[id]) {
-                    current[id] = val;
-                    const el = document.getElementById(id);
-                    if (el) el.textContent = val.toLocaleString();
-                }
-            });
-            // Rate counts
-            Object.entries(rateTargets).forEach(([id, target]) => {
-                const val = (target * e).toFixed(1) + '%';
-                const el = document.getElementById(id);
-                if (el) el.textContent = val;
-            });
-            if (p < 1) requestAnimationFrame(tick);
-            else {
-                // Animate funnel bars
-                document.querySelectorAll('.dmf-bar').forEach(bar => {
-                    bar.style.width = getComputedStyle(bar).getPropertyValue('--w') || bar.style.getPropertyValue('--w');
-                    const w = bar.getAttribute('style').match(/--w:([\d.]+%)/);
-                    if (w) bar.style.width = w[1];
-                });
-                // Show second reply
-                const r2 = document.getElementById('dmr-r2');
-                if (r2) setTimeout(() => { r2.style.opacity='1'; r2.style.transform='translateY(0)'; }, 600);
-                // Live bump simulation
-                setTimeout(liveBump, 3500);
-            }
-        }
-        requestAnimationFrame(tick);
-
-        // Animate funnel bars in
-        setTimeout(() => {
-            document.querySelectorAll('.dmf-bar').forEach((bar, i) => {
-                const styleAttr = bar.getAttribute('style') || '';
-                const match = styleAttr.match(/--w:([\d.]+%)/);
-                if (match) setTimeout(() => { bar.style.width = match[1]; }, i * 120);
-            });
-        }, DURATION * 0.6);
-    }
-
-    function liveBump() {
-        const ids = ['dm-sent', 'dm-opens'];
-        const id = ids[Math.floor(Math.random() * ids.length)];
-        const el = document.getElementById(id);
-        if (el) {
-            const cur = parseInt(el.textContent.replace(/,/g,'')) + 1;
-            el.textContent = cur.toLocaleString();
-            bump(el);
-        }
-        setTimeout(liveBump, 2000 + Math.random() * 3000);
-    }
-
-    const io = new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting) { runMockup(); io.disconnect(); }
-    }, { threshold: 0.25 });
-    const demo = document.getElementById('demo');
-    if (demo) io.observe(demo);
-})();
-
 /* ── BILLING TOGGLE ── */
 function splitFlap(el, newText, done) {
     // Wrap each char in a span if not already done
