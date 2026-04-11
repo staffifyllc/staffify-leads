@@ -284,16 +284,31 @@
                 <p>Takes ~3 minutes · Your answers shape your entire campaign</p>
             </div>
         </div>
-        <div class="form-wrap">
+        <div class="form-wrap" id="form-container">
             <iframe
-                src="https://docs.google.com/forms/d/1vRKQT9QbOAMVSTrGyHiAhSUQhBlhagxNRuPFwaZz35E/viewform?embedded=true"
+                src="https://campaign-dashboard-green.vercel.app/onboard?embedded=1"
                 frameborder="0"
-                marginheight="0"
-                marginwidth="0"
+                style="display:block;width:100%;min-height:2400px;border:none;"
                 loading="lazy">
-                Loading form…
+                Loading onboarding form...
             </iframe>
         </div>
+        <script>
+            // If arriving from Stripe with a session_id, generate a token and load the tokenized form
+            (async function() {
+                const params = new URLSearchParams(window.location.search);
+                const sessionId = params.get('session_id');
+                if (!sessionId) return;
+                const container = document.getElementById('form-container');
+                try {
+                    const r = await fetch('https://campaign-dashboard-green.vercel.app/api/post-checkout?session_id=' + encodeURIComponent(sessionId) + '&json=1');
+                    const d = await r.json();
+                    if (d.ok && d.token) {
+                        container.innerHTML = '<iframe src="https://campaign-dashboard-green.vercel.app/onboard?token=' + d.token + '&embedded=1" frameborder="0" style="display:block;width:100%;min-height:2400px;border:none;" loading="lazy"></iframe>';
+                    }
+                } catch(e) {}
+            })();
+        </script>
     </div>
 </div>
 
