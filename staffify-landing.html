@@ -38,6 +38,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://assets.calendly.com">
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
     <!-- Google Fonts — 3 weights only (was 7), non-blocking print-swap trick -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -1698,6 +1701,17 @@
             .ct-l { font-size: 11px; }
         }
 
+        /* ── SMALL PHONE HERO — keeps CTA above fold on iPhone SE / 375px ── */
+        @media (max-width: 480px) {
+            .hero { padding: 72px 18px 40px; }
+            .hero-eyebrow { margin-bottom: 14px; font-size: 11px; }
+            .hero h1 { font-size: 38px; letter-spacing: -1px; margin-bottom: 14px; }
+            .hero-sub { font-size: 15px; margin-bottom: 16px; }
+            .hero-social-proof { margin-bottom: 14px; }
+            .hero-ctas { margin-bottom: 12px; }
+            .hero-microcopy { font-size: 11px; }
+        }
+
         /* ── MOBILE HERO — heavily optimised ── */
         @media (max-width: 768px) {
             /* Tighter top padding so headline is visible above fold */
@@ -1868,6 +1882,18 @@
         #features .feat-row:nth-child(n+2) {
             content-visibility: auto;
             contain-intrinsic-size: auto 500px;
+        }
+        .explainer-section {
+            content-visibility: auto;
+            contain-intrinsic-size: auto 800px;
+        }
+        .metrics {
+            content-visibility: auto;
+            contain-intrinsic-size: auto 260px;
+        }
+        .pricing-section {
+            content-visibility: auto;
+            contain-intrinsic-size: auto 1100px;
         }
 
         /* ══════════════════════════════
