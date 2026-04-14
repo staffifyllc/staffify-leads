@@ -61,14 +61,35 @@
         var _calendlyLoading = false;
         var _calendlyLoaded  = false;
 
+        // Track which element triggered the open so we can reset its label
+        var _calTriggerEl = null;
+        var _calTriggerText = '';
+
+        function _setCalBtnLoading(el, loading) {
+            if (!el) return;
+            if (loading) {
+                _calTriggerText = el.textContent;
+                el.textContent = 'Loading…';
+                el.style.opacity = '0.7';
+                el.style.pointerEvents = 'none';
+            } else {
+                el.textContent = _calTriggerText;
+                el.style.opacity = '';
+                el.style.pointerEvents = '';
+            }
+        }
+
         function openCalendly(e) {
             if (e) e.preventDefault();
+            var triggerEl = (e && e.currentTarget) ? e.currentTarget : null;
             if (_calendlyLoaded) {
                 Calendly.initPopupWidget({ url: CALENDLY_URL });
                 return false;
             }
             if (_calendlyLoading) return false;
             _calendlyLoading = true;
+            _calTriggerEl = triggerEl;
+            _setCalBtnLoading(triggerEl, true);
 
             // Inject CSS
             var css = document.createElement('link');
@@ -82,10 +103,12 @@
             js.onload = function() {
                 _calendlyLoaded = true;
                 _calendlyLoading = false;
+                _setCalBtnLoading(_calTriggerEl, false);
                 Calendly.initPopupWidget({ url: CALENDLY_URL });
             };
             js.onerror = function() {
                 _calendlyLoading = false;
+                _setCalBtnLoading(_calTriggerEl, false);
                 window.open(CALENDLY_URL, '_blank');
             };
             document.head.appendChild(js);
