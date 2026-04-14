@@ -1096,6 +1096,21 @@
             background: linear-gradient(to bottom, rgba(26,189,225,0.3), rgba(26,189,225,0.1));
             margin: 0 0 0 34px;
         }
+        .vms-inline-cta {
+            display: block;
+            margin-top: 28px;
+            background: var(--c);
+            color: #fff;
+            text-align: center;
+            padding: 17px 24px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 0 32px rgba(26,189,225,0.3);
+            transition: all .2s;
+        }
+        .vms-inline-cta:active { transform: scale(0.97); }
 
         /* ── CASE STUDIES ── */
         .case-section {
@@ -2580,6 +2595,10 @@
                 </div>
             </div>
         </div>
+        <!-- Inline CTA after steps — catches mobile visitors at peak understanding -->
+        <a href="#" onclick="return openCalendly(event)" class="vms-inline-cta reveal">
+            Start Filling Your Pipeline →
+        </a>
     </div>
 
 </div>
