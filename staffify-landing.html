@@ -1626,6 +1626,8 @@
         @media (max-width: 900px) {
             nav { padding: 0 20px; }
             .nav-links { display: none; }
+            /* Nav: drop expensive backdrop-filter on mobile */
+            nav { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(0,0,0,0.95); }
             .hero, .narrative, .final-cta { padding-left: 24px; padding-right: 24px; }
             .hero h1 { letter-spacing: -1px; }
             .hero-stats { flex-direction: column; }
@@ -1694,6 +1696,178 @@
             .ct-item:nth-child(2) { border-bottom: 1px solid var(--divider); }
             .ct-n { font-size: 28px; letter-spacing: -1px; }
             .ct-l { font-size: 11px; }
+        }
+
+        /* ── MOBILE HERO — heavily optimised ── */
+        @media (max-width: 768px) {
+            /* Tighter top padding so headline is visible above fold */
+            .hero { padding: 88px 22px 56px; }
+
+            /* Kill GPU-heavy orb animation on mobile */
+            .orb { display: none; }
+
+            /* Hero stats panel is too tall and cluttered on mobile — hide it,
+               social-proof line replaces it above fold */
+            .hero-stats { display: none; }
+
+            /* Full-width primary CTA — thumb-friendly tap target */
+            .hero-ctas {
+                flex-direction: column;
+                width: 100%;
+                gap: 12px;
+                margin-bottom: 24px;
+            }
+            .btn-primary {
+                width: 100%;
+                text-align: center;
+                padding: 18px 24px;
+                font-size: 17px;
+                border-radius: 14px;
+            }
+            .btn-ghost { font-size: 14px; }
+
+            /* Hero micro-copy */
+            .hero-microcopy {
+                font-size: 12px;
+                color: rgba(255,255,255,0.35);
+                margin-bottom: 36px;
+            }
+
+            /* Social proof strip */
+            .hero-social-proof {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
+        /* ── HERO ADDITIONS ── */
+        .hero-social-proof {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+        .hsp-avatars {
+            display: flex;
+        }
+        .hsp-av {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            border: 2px solid #000;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 10px; font-weight: 800; color: #fff;
+            margin-left: -8px;
+            flex-shrink: 0;
+        }
+        .hsp-avatars .hsp-av:first-child { margin-left: 0; }
+        .hsp-text {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            font-weight: 400;
+        }
+        .hsp-text strong { color: rgba(255,255,255,0.85); font-weight: 600; }
+
+        .hero-microcopy {
+            font-size: 13px;
+            color: rgba(255,255,255,0.3);
+            margin-top: -28px;
+            margin-bottom: 48px;
+            letter-spacing: 0.2px;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: rgba(255,255,255,0.2);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .scroll-indicator:hover { color: rgba(255,255,255,0.5); }
+        .scroll-indicator svg {
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateY(0); }
+            50%       { transform: translateY(5px); }
+        }
+        @media (max-width: 768px) {
+            .scroll-indicator { display: none; }
+        }
+
+        /* ── TRUST RIBBON ── */
+        .trust-ribbon {
+            background: #0a0a0a;
+            border-top: 1px solid rgba(26,189,225,0.12);
+            border-bottom: 1px solid rgba(26,189,225,0.12);
+            padding: 14px 40px;
+        }
+        .tr-inner {
+            max-width: 860px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+        }
+        .tr-item {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.55);
+            padding: 0 28px;
+            white-space: nowrap;
+        }
+        .tr-icon {
+            color: #1abde1;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .tr-divider {
+            width: 1px;
+            height: 18px;
+            background: rgba(255,255,255,0.1);
+            flex-shrink: 0;
+        }
+        @media (max-width: 768px) {
+            .trust-ribbon { padding: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .tr-inner { justify-content: flex-start; padding: 12px 16px; gap: 0; width: max-content; }
+            .tr-item { font-size: 12px; padding: 0 18px; }
+            .tr-item:first-child { padding-left: 0; }
+        }
+
+        /* ── REDUCED MOTION — kills all animation for battery/accessibility ── */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+
+        /* ── CONTENT VISIBILITY — skip off-screen render work ── */
+        .case-section {
+            content-visibility: auto;
+            contain-intrinsic-size: auto 900px;
+        }
+        #features .feat-row:nth-child(n+2) {
+            content-visibility: auto;
+            contain-intrinsic-size: auto 500px;
         }
 
         /* ══════════════════════════════
@@ -2079,12 +2253,14 @@
         /* ── SCROLL REVEAL ── */
         .reveal {
             opacity: 0;
-            transform: translateY(28px);
-            transition: opacity .7s ease, transform .7s ease;
+            transform: translateY(22px);
+            transition: opacity .5s ease, transform .5s ease;
+            will-change: opacity, transform;
         }
         .reveal.in-view {
             opacity: 1;
             transform: translateY(0);
+            will-change: auto;
         }
     </style>
 </head>
@@ -2107,7 +2283,7 @@
     <div class="orb"></div>
     <div class="hero-eyebrow">
         <span class="pulse-dot"></span>
-        Powered by AI Automation
+        Now Booking April Clients &nbsp;·&nbsp; Limited Spots
     </div>
     <h1>
         Reach Your Next<br>
@@ -2115,28 +2291,71 @@
         Automatically.
     </h1>
     <p class="hero-sub">
-        Staffify fills your pipeline through intelligent, automated outreach — without adding a single task to your plate.
+        Done-for-you outreach that books qualified meetings on your calendar — so you close deals, not cold calls.
     </p>
+    <!-- Social proof avatars — shown above fold on mobile, keeps scroll engagement -->
+    <div class="hero-social-proof">
+        <div class="hsp-avatars">
+            <div class="hsp-av" style="background:#1abde1;">MR</div>
+            <div class="hsp-av" style="background:#0d82b8;">AP</div>
+            <div class="hsp-av" style="background:#1456a4;">SC</div>
+            <div class="hsp-av" style="background:#10b981;">TW</div>
+        </div>
+        <span class="hsp-text"><strong>47+ service businesses</strong> filling their pipelines this month</span>
+    </div>
     <div class="hero-ctas">
         <a href="#" onclick="return openCalendly(event)" class="btn-primary">Book a Free Strategy Call →</a>
         <a href="#pricing" class="btn-ghost">See Pricing ↓</a>
     </div>
+    <p class="hero-microcopy">Free 20-min call &nbsp;·&nbsp; No commitment &nbsp;·&nbsp; Results in 30 days or we keep working free</p>
     <div class="hero-stats">
         <div class="stat">
-            <div class="stat-num" data-count="5000" data-suffix="+" data-comma="1">0</div>
+            <div class="stat-num" data-count="5000" data-suffix="+" data-comma="1">5,000+</div>
             <div class="stat-lbl">Max Contacts / Campaign</div>
         </div>
         <div class="stat">
-            <div class="stat-num" data-count="30" data-suffix="-Day">0</div>
+            <div class="stat-num" data-count="30" data-suffix="-Day">30-Day</div>
             <div class="stat-lbl">Campaign Cycles</div>
         </div>
         <div class="stat">
-            <div class="stat-num" data-count="7" data-suffix="×">0</div>
+            <div class="stat-num" data-count="7" data-suffix="×">7×</div>
             <div class="stat-lbl">Email Touchpoints</div>
         </div>
         <div class="stat">
-            <div class="stat-num" data-count="100" data-suffix="%">0</div>
+            <div class="stat-num" data-count="100" data-suffix="%">100%</div>
             <div class="stat-lbl">Verified Deliverability</div>
+        </div>
+    </div>
+    <!-- Scroll indicator — desktop only -->
+    <a href="#how-it-works" class="scroll-indicator">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M4 7l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Scroll to explore
+    </a>
+</div>
+
+<!-- ═══ TRUST RIBBON ═══ -->
+<div class="trust-ribbon">
+    <div class="tr-inner">
+        <div class="tr-item">
+            <span class="tr-icon">✓</span>
+            <span>Results in 30 days</span>
+        </div>
+        <div class="tr-divider"></div>
+        <div class="tr-item">
+            <span class="tr-icon">✓</span>
+            <span>100% done-for-you</span>
+        </div>
+        <div class="tr-divider"></div>
+        <div class="tr-item">
+            <span class="tr-icon">✓</span>
+            <span>No long-term contracts</span>
+        </div>
+        <div class="tr-divider"></div>
+        <div class="tr-item">
+            <span class="tr-icon">✓</span>
+            <span>Setup in 48 hours</span>
         </div>
     </div>
 </div>
@@ -3021,8 +3240,8 @@ function toggleBilling(el) {
 /* ── SCROLL REVEAL ── */
 const revealEls = document.querySelectorAll('.reveal');
 const revealObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); } });
-}, { threshold: 0.12 });
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
 revealEls.forEach(el => revealObs.observe(el));
 
 /* ══════════════════════════════
