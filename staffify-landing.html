@@ -37,6 +37,31 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Google Ads Tag -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18080348527"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-18080348527');
+    </script>
+    <!-- Calendly Widget -->
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+    <script>
+        /* ── CALENDLY URL — update this when you have your link ── */
+        var CALENDLY_URL = 'https://calendly.com/hello-gostaffify/discovery-call';
+
+        function openCalendly(e) {
+            if (e) e.preventDefault();
+            if (typeof Calendly !== 'undefined') {
+                Calendly.initPopupWidget({ url: CALENDLY_URL });
+            } else {
+                window.open(CALENDLY_URL, '_blank');
+            }
+            return false;
+        }
+    </script>
     <!-- Calendly → Google Ads Conversion Tracking -->
     <script>
         window.addEventListener('message', function(e) {
@@ -2050,7 +2075,7 @@
         <li><a href="#results">Results</a></li>
         <li><a href="#pricing">Pricing</a></li>
     </ul>
-    <a href="#pricing" class="nav-cta">Start Your Campaign</a>
+    <a href="#" onclick="return openCalendly(event)" class="nav-cta">Book a Free Call</a>
 </nav>
 
 <!-- ═══ HERO ═══ -->
@@ -2069,8 +2094,8 @@
         Staffify fills your pipeline through intelligent, automated outreach — without adding a single task to your plate.
     </p>
     <div class="hero-ctas">
-        <a href="#pricing" class="btn-primary">Start Your Campaign →</a>
-        <a href="#how-it-works" class="btn-ghost">See how it works ↓</a>
+        <a href="#" onclick="return openCalendly(event)" class="btn-primary">Book a Free Strategy Call →</a>
+        <a href="#pricing" class="btn-ghost">See Pricing ↓</a>
     </div>
     <div class="hero-stats">
         <div class="stat">
@@ -2634,6 +2659,10 @@
         <div class="ti"><span class="ti-dot">✓</span> No Setup Fees</div>
         <div class="ti"><span class="ti-dot">✓</span> Unlimited Users</div>
     </div>
+
+    <div style="text-align:center;padding:32px 20px 0;color:#6e6e73;font-size:15px;">
+        Not sure which plan fits? <a href="#" onclick="return openCalendly(event)" style="color:#1abde1;font-weight:600;text-decoration:none;">Book a free 20-min strategy call →</a>
+    </div>
 </div>
 
 <!-- ═══ FINAL CTA ═══ -->
@@ -2642,8 +2671,9 @@
         Your pipeline<br>
         won't <span class="g">fill itself.</span>
     </h2>
-    <p>Launch your first campaign today.<br>Start converting at scale.</p>
-    <a href="#pricing" class="btn-primary">Start Your Campaign →</a>
+    <p>Let's talk about your goals — free 20-min strategy call.<br>No pitch. No pressure. Just a plan.</p>
+    <a href="#" onclick="return openCalendly(event)" class="btn-primary">Book Your Free Strategy Call →</a>
+    <div style="margin-top:14px;font-size:13px;opacity:0.5;">Or <a href="#pricing" style="color:inherit;text-decoration:underline;">view pricing</a> if you're ready to start</div>
 </div>
 
 <!-- ═══ FOOTER ═══ -->
