@@ -314,8 +314,12 @@
             font-size: 15px;
             font-weight: 700;
             text-decoration: none;
-            transition: all .2s;
+            transition: background .2s, transform .2s, box-shadow .2s;
             box-shadow: 0 0 40px rgba(26,189,225,0.35);
+        }
+        .btn-primary:active {
+            transform: scale(0.97);
+            box-shadow: 0 0 20px rgba(26,189,225,0.3);
         }
         .btn-primary:hover {
             background: var(--c2);
