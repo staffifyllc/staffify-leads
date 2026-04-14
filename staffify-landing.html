@@ -1693,6 +1693,10 @@
             .final-cta { padding: 72px 24px; }
             .pricing-section { padding: 72px 20px; }
             #features { padding-top: 0; }
+            .narrative { padding-top: 64px; padding-bottom: 64px; }
+            /* Remove hover transitions on mobile — no hover state, just wastes GPU */
+            .case-card { transition: none; }
+            .case-card:hover { transform: none; }
 
             /* ── EXPLAINER: hide desktop, show mobile cards ── */
             .vid-player { display: none !important; }
