@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <!-- Deep dark background gradient -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#000000"/>
+      <stop offset="50%" style="stop-color:#03050a"/>
+      <stop offset="100%" style="stop-color:#000810"/>
+    </linearGradient>
+
+    <!-- Cyan glow radial -->
+    <radialGradient id="glow1" cx="75%" cy="35%" r="45%">
+      <stop offset="0%" style="stop-color:#1abde1;stop-opacity:0.18"/>
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:0"/>
+    </radialGradient>
+
+    <!-- Secondary blue glow -->
+    <radialGradient id="glow2" cx="20%" cy="70%" r="40%">
+      <stop offset="0%" style="stop-color:#1456a4;stop-opacity:0.22"/>
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:0"/>
+    </radialGradient>
+
+    <!-- Text gradient cyan→blue -->
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1abde1"/>
+      <stop offset="40%" style="stop-color:#0fa3c5"/>
+      <stop offset="75%" style="stop-color:#0d82b8"/>
+      <stop offset="100%" style="stop-color:#1456a4"/>
+    </linearGradient>
+
+    <!-- Grid line fade -->
+    <linearGradient id="gridFade" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1abde1;stop-opacity:0"/>
+      <stop offset="30%" style="stop-color:#1abde1;stop-opacity:0.12"/>
+      <stop offset="70%" style="stop-color:#1abde1;stop-opacity:0.12"/>
+      <stop offset="100%" style="stop-color:#1abde1;stop-opacity:0"/>
+    </linearGradient>
+
+    <!-- Vertical grid fade -->
+    <linearGradient id="gridFadeV" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1abde1;stop-opacity:0"/>
+      <stop offset="30%" style="stop-color:#1abde1;stop-opacity:0.1"/>
+      <stop offset="70%" style="stop-color:#1abde1;stop-opacity:0.1"/>
+      <stop offset="100%" style="stop-color:#1abde1;stop-opacity:0"/>
+    </linearGradient>
+
+    <!-- Orb glow filter -->
+    <filter id="orbGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <!-- Strong glow for headline -->
+    <filter id="textGlow" x="-10%" y="-30%" width="120%" height="160%">
+      <feGaussianBlur stdDeviation="12" in="SourceGraphic" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <!-- Soft blur -->
+    <filter id="softBlur">
+      <feGaussianBlur stdDeviation="40"/>
+    </filter>
+
+    <!-- Clip path for the main card -->
+    <clipPath id="mainClip">
+      <rect width="1200" height="630"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#mainClip)">
+
+    <!-- ── BACKGROUND ── -->
+    <rect width="1200" height="630" fill="url(#bg)"/>
+    <rect width="1200" height="630" fill="url(#glow1)"/>
+    <rect width="1200" height="630" fill="url(#glow2)"/>
+
+    <!-- ── GRID LINES (perspective) ── -->
+    <!-- Horizontal lines -->
+    <line x1="0" y1="158" x2="1200" y2="158" stroke="url(#gridFade)" stroke-width="0.5"/>
+    <line x1="0" y1="210" x2="1200" y2="210" stroke="url(#gridFade)" stroke-width="0.5"/>
+    <line x1="0" y1="262" x2="1200" y2="262" stroke="url(#gridFade)" stroke-width="0.5"/>
+    <line x1="0" y1="314" x2="1200" y2="314" stroke="url(#gridFade)" stroke-width="0.5"/>
+    <line x1="0" y1="366" x2="1200" y2="366" stroke="url(#gridFade)" stroke-width="0.5"/>
+    <line x1="0" y1="418" x2="1200" y2="418" stroke="url(#gridFade)" stroke-width="0.5"/>
+    <line x1="0" y1="470" x2="1200" y2="470" stroke="url(#gridFade)" stroke-width="0.5"/>
+    <!-- Vertical lines -->
+    <line x1="200" y1="0" x2="200" y2="630" stroke="url(#gridFadeV)" stroke-width="0.5"/>
+    <line x1="400" y1="0" x2="400" y2="630" stroke="url(#gridFadeV)" stroke-width="0.5"/>
+    <line x1="600" y1="0" x2="600" y2="630" stroke="url(#gridFadeV)" stroke-width="0.5"/>
+    <line x1="800" y1="0" x2="800" y2="630" stroke="url(#gridFadeV)" stroke-width="0.5"/>
+    <line x1="1000" y1="0" x2="1000" y2="630" stroke="url(#gridFadeV)" stroke-width="0.5"/>
+
+    <!-- ── BIG GLOW ORBS (atmospheric) ── -->
+    <ellipse cx="920" cy="180" rx="320" ry="200" fill="#1abde1" opacity="0.07" filter="url(#softBlur)"/>
+    <ellipse cx="250" cy="480" rx="280" ry="180" fill="#1456a4" opacity="0.10" filter="url(#softBlur)"/>
+    <ellipse cx="1100" cy="500" rx="180" ry="120" fill="#0fa3c5" opacity="0.06" filter="url(#softBlur)"/>
+
+    <!-- ── CIRCUIT NODE DOTS ── -->
+    <circle cx="200" cy="158" r="2.5" fill="#1abde1" opacity="0.5"/>
+    <circle cx="400" cy="262" r="2.5" fill="#1abde1" opacity="0.4"/>
+    <circle cx="600" cy="210" r="3" fill="#1abde1" opacity="0.6"/>
+    <circle cx="800" cy="314" r="2" fill="#1abde1" opacity="0.35"/>
+    <circle cx="1000" cy="158" r="2.5" fill="#1abde1" opacity="0.5"/>
+    <circle cx="400" cy="418" r="2" fill="#0d82b8" opacity="0.4"/>
+    <circle cx="800" cy="470" r="2.5" fill="#0d82b8" opacity="0.35"/>
+
+    <!-- ── FLOATING DATA STREAM (right side) ── -->
+    <g opacity="0.15" font-family="'Courier New', monospace" font-size="11" fill="#1abde1">
+      <text x="1040" y="140">PIPELINE_STATUS: ACTIVE</text>
+      <text x="1060" y="162">LEADS_QUEUED: 847</text>
+      <text x="1050" y="184">CONVERSION_RATE: 34%</text>
+      <text x="1070" y="206">OUTREACH_SVC: RUNNING</text>
+      <text x="1055" y="228">B2B_TARGETS: LOCKED</text>
+      <text x="1065" y="250">MEETINGS_TODAY: 12</text>
+      <text x="1040" y="272">REVENUE_IMPACT: $84K</text>
+      <text x="1060" y="294">AI_OPTIMIZER: v4.2</text>
+    </g>
+
+    <!-- ── GLOWING ACCENT LINE (top) ── -->
+    <rect x="0" y="0" width="1200" height="2" fill="url(#textGrad)" opacity="0.8"/>
+
+    <!-- ── BADGE / PILL ── -->
+    <rect x="72" y="88" width="210" height="34" rx="17" fill="#1abde1" fill-opacity="0.08" stroke="#1abde1" stroke-width="1" stroke-opacity="0.4"/>
+    <circle cx="94" cy="105" r="5" fill="#1abde1" opacity="0.9"/>
+    <text x="108" y="110" font-family="'Inter', -apple-system, sans-serif" font-size="13" font-weight="600" fill="#1abde1" letter-spacing="0.5">AUTOMATED LEAD ENGINE</text>
+
+    <!-- ── MAIN HEADLINE ── -->
+    <!-- Shadow/glow layer -->
+    <text x="72" y="210" font-family="'Inter', -apple-system, sans-serif" font-size="92" font-weight="900" fill="#1abde1" opacity="0.08" filter="url(#softBlur)" letter-spacing="-3">We Book.</text>
+    <text x="72" y="310" font-family="'Inter', -apple-system, sans-serif" font-size="92" font-weight="900" fill="#1abde1" opacity="0.08" filter="url(#softBlur)" letter-spacing="-3">You Close.</text>
+
+    <!-- Main text - white first line -->
+    <text x="72" y="208" font-family="'Inter', -apple-system, sans-serif" font-size="90" font-weight="900" fill="#ffffff" letter-spacing="-3">We Book.</text>
+    <!-- Gradient second line -->
+    <text x="72" y="308" font-family="'Inter', -apple-system, sans-serif" font-size="90" font-weight="900" fill="url(#textGrad)" letter-spacing="-3">You Close.</text>
+
+    <!-- ── SUBHEADLINE ── -->
+    <text x="72" y="360" font-family="'Inter', -apple-system, sans-serif" font-size="24" font-weight="400" fill="#a1a1a6" letter-spacing="-0.3">Done-for-you B2B lead generation. Real meetings.</text>
+    <text x="72" y="392" font-family="'Inter', -apple-system, sans-serif" font-size="24" font-weight="400" fill="#a1a1a6" letter-spacing="-0.3">Real pipeline. Zero cold calling.</text>
+
+    <!-- ── STAT PILLS ── -->
+    <!-- Stat 1 -->
+    <rect x="72" y="432" width="170" height="72" rx="14" fill="#ffffff" fill-opacity="0.04" stroke="#1abde1" stroke-width="1" stroke-opacity="0.25"/>
+    <text x="157" y="462" font-family="'Inter', -apple-system, sans-serif" font-size="28" font-weight="800" fill="#1abde1" text-anchor="middle">10+</text>
+    <text x="157" y="483" font-family="'Inter', -apple-system, sans-serif" font-size="12" font-weight="500" fill="#6e6e73" text-anchor="middle">Meetings/Month</text>
+
+    <!-- Stat 2 -->
+    <rect x="258" y="432" width="170" height="72" rx="14" fill="#ffffff" fill-opacity="0.04" stroke="#1abde1" stroke-width="1" stroke-opacity="0.25"/>
+    <text x="343" y="462" font-family="'Inter', -apple-system, sans-serif" font-size="28" font-weight="800" fill="#1abde1" text-anchor="middle">34%</text>
+    <text x="343" y="483" font-family="'Inter', -apple-system, sans-serif" font-size="12" font-weight="500" fill="#6e6e73" text-anchor="middle">Avg. Close Rate</text>
+
+    <!-- Stat 3 -->
+    <rect x="444" y="432" width="170" height="72" rx="14" fill="#ffffff" fill-opacity="0.04" stroke="#1abde1" stroke-width="1" stroke-opacity="0.25"/>
+    <text x="529" y="462" font-family="'Inter', -apple-system, sans-serif" font-size="28" font-weight="800" fill="#1abde1" text-anchor="middle">30d</text>
+    <text x="529" y="483" font-family="'Inter', -apple-system, sans-serif" font-size="12" font-weight="500" fill="#6e6e73" text-anchor="middle">Results or Free</text>
+
+    <!-- ── LOGO / BRAND (bottom right) ── -->
+    <text x="1128" y="574" font-family="'Inter', -apple-system, sans-serif" font-size="22" font-weight="800" fill="#ffffff" text-anchor="end" letter-spacing="-0.5">Staffify</text>
+    <text x="1128" y="596" font-family="'Inter', -apple-system, sans-serif" font-size="13" font-weight="400" fill="#6e6e73" text-anchor="end">campaigns.gostaffify.com</text>
+
+    <!-- ── BOTTOM CTA ── -->
+    <rect x="72" y="550" width="280" height="52" rx="12" fill="url(#textGrad)" opacity="0.9"/>
+    <text x="212" y="582" font-family="'Inter', -apple-system, sans-serif" font-size="17" font-weight="700" fill="#000000" text-anchor="middle" letter-spacing="-0.2">Book a Free Strategy Call →</text>
+
+    <!-- ── CORNER ACCENT (top right) ── -->
+    <line x1="1100" y1="0" x2="1200" y2="0" stroke="#1abde1" stroke-width="2" opacity="0.6"/>
+    <line x1="1200" y1="0" x2="1200" y2="100" stroke="#1abde1" stroke-width="2" opacity="0.6"/>
+
+    <!-- ── BOTTOM ACCENT LINE ── -->
+    <rect x="0" y="628" width="1200" height="2" fill="url(#textGrad)" opacity="0.5"/>
+
+  </g>
+</svg>
+</body>
+</html>
