@@ -34,9 +34,14 @@
     <!-- Canonical -->
     <link rel="canonical" href="https://campaigns.gostaffify.com/">
 
+    <!-- Preconnect to external origins we'll use -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://assets.calendly.com">
+    <!-- Google Fonts — 3 weights only (was 7), non-blocking print-swap trick -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet"></noscript>
     <!-- Google Ads Tag -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18080348527"></script>
     <script>
@@ -45,30 +50,49 @@
         gtag('js', new Date());
         gtag('config', 'AW-18080348527');
     </script>
-    <!-- Calendly Widget -->
-    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+    <!-- Calendly — lazy loaded on first CTA click, NOT on page load -->
     <script>
-        /* ── CALENDLY URL — update this when you have your link ── */
         var CALENDLY_URL = 'https://calendly.com/hello-gostaffify/discovery-call';
+        var _calendlyLoading = false;
+        var _calendlyLoaded  = false;
 
         function openCalendly(e) {
             if (e) e.preventDefault();
-            if (typeof Calendly !== 'undefined') {
+            if (_calendlyLoaded) {
                 Calendly.initPopupWidget({ url: CALENDLY_URL });
-            } else {
-                window.open(CALENDLY_URL, '_blank');
+                return false;
             }
+            if (_calendlyLoading) return false;
+            _calendlyLoading = true;
+
+            // Inject CSS
+            var css = document.createElement('link');
+            css.rel = 'stylesheet';
+            css.href = 'https://assets.calendly.com/assets/external/widget.css';
+            document.head.appendChild(css);
+
+            // Inject JS, then open widget
+            var js = document.createElement('script');
+            js.src = 'https://assets.calendly.com/assets/external/widget.js';
+            js.onload = function() {
+                _calendlyLoaded = true;
+                _calendlyLoading = false;
+                Calendly.initPopupWidget({ url: CALENDLY_URL });
+            };
+            js.onerror = function() {
+                _calendlyLoading = false;
+                window.open(CALENDLY_URL, '_blank');
+            };
+            document.head.appendChild(js);
             return false;
         }
-    </script>
-    <!-- Calendly → Google Ads Conversion Tracking -->
-    <script>
+
+        // Conversion tracking — fires whenever Calendly booking is confirmed
         window.addEventListener('message', function(e) {
-            if (e.data.event && e.data.event === 'calendly.event_scheduled') {
-                gtag('event', 'conversion', {
-                    'send_to': 'AW-18080348527/eDl5CML1t5scEO_ysK1D'
-                });
+            if (e.data && e.data.event === 'calendly.event_scheduled') {
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'conversion', { 'send_to': 'AW-18080348527/eDl5CML1t5scEO_ysK1D' });
+                }
             }
         });
     </script>
@@ -2431,7 +2455,7 @@
             <!-- Case Study 1 · Landscaping -->
             <div class="case-card">
                 <div class="case-photo-wrap">
-                    <img src="https://images.unsplash.com/photo-1416879595882-01d077a851e9?w=900&auto=format&fit=crop&q=80" alt="Evergreen Grounds landscaping team">
+                    <img src="https://images.unsplash.com/photo-1416879595882-01d077a851e9?w=800&auto=format&fit=crop&q=70" alt="Evergreen Grounds landscaping team" loading="lazy" decoding="async" width="800" height="600">
                     <div class="case-photo-overlay"></div>
                     <div class="case-results-bar">
                         <div class="crs">
@@ -2473,7 +2497,7 @@
             <!-- Case Study 2 · HVAC / Climate Services -->
             <div class="case-card">
                 <div class="case-photo-wrap">
-                    <img src="https://images.unsplash.com/photo-1581092160562-40aa08e0c0c1?w=900&auto=format&fit=crop&q=80" alt="ProClimate Solutions technician">
+                    <img src="https://images.unsplash.com/photo-1581092160562-40aa08e0c0c1?w=800&auto=format&fit=crop&q=70" alt="ProClimate Solutions technician" loading="lazy" decoding="async" width="800" height="600">
                     <div class="case-photo-overlay"></div>
                     <div class="case-results-bar">
                         <div class="crs">
@@ -3360,7 +3384,7 @@ function buildScene3() {
     const SESSION_KEY = 'si_exit_shown';
     let shown = false;
     let pageLoadTime = Date.now();
-    const MIN_TIME_ON_PAGE = 5000; // 5s minimum before showing
+    const MIN_TIME_ON_PAGE = 15000; // 15s minimum before showing
 
     function canShow() {
         return !shown && !sessionStorage.getItem(SESSION_KEY);
@@ -3415,7 +3439,7 @@ function buildScene3() {
                 // User scrolled up — measure velocity (px/ms)
                 scrollUpVelocity = delta / elapsed;
                 // Fire if: scrolled up fast AND near top of page AND enough time spent
-                if (scrollUpVelocity > 1.2 && currentY < 120) {
+                if (scrollUpVelocity > 2.5 && currentY < 80) {
                     showExitIntent();
                 }
             } else {
