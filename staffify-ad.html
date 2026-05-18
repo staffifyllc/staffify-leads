@@ -42,8 +42,10 @@ html,body{
   padding:64px 48px;z-index:10;
   opacity:0;pointer-events:none;
   background:#000;
+  transition:opacity 0.45s ease;
 }
-.scene.active{opacity:1;pointer-events:auto;}
+.scene.active{display:flex;pointer-events:auto;}
+.scene.fade-in{opacity:1;}
 
 /* ── WORD REVEAL ── */
 .word{
@@ -555,19 +557,55 @@ const SCENES = [
 
 const INITS = {s0:initS0, s1:initS1, s2:initS2, s3:initS3, s4:initS4, s5:initS5, s6:initS6};
 
+// Cache original HTML for each scene so we can restore on loop reset (no cloneNode stutter)
+var SCENE_HTML = {};
+SCENES.forEach(function(s) {
+  var el = document.getElementById(s.id);
+  if (el) SCENE_HTML[s.id] = el.innerHTML;
+});
+
 var t0 = null;
 var prevElapsed = -1;
 var wipeTriggered = false;
+var activeSceneId = null;
+
+function resetSceneHTML(id) {
+  var el = document.getElementById(id);
+  if (el && SCENE_HTML[id]) {
+    el.innerHTML = SCENE_HTML[id];
+  }
+}
 
 function switchScene(id) {
-  document.querySelectorAll('.scene').forEach(function(s) { s.classList.remove('active'); });
-  var old = document.getElementById(id);
-  if (!old) return;
-  var clone = old.cloneNode(true);
-  old.parentNode.replaceChild(clone, old);
+  if (id === activeSceneId) return;
+  var prev = activeSceneId ? document.getElementById(activeSceneId) : null;
+  var next = document.getElementById(id);
+  if (!next) return;
+
+  // Fade out & deactivate previous scene
+  if (prev) {
+    prev.classList.remove('fade-in');
+    var prevId = activeSceneId;
+    setTimeout(function() {
+      var p = document.getElementById(prevId);
+      if (p) {
+        p.classList.remove('active');
+        // Restore original HTML so next loop plays fresh
+        resetSceneHTML(prevId);
+      }
+    }, 460);
+  }
+
+  activeSceneId = id;
+
+  // Restore fresh HTML before activating (in case it ran before)
+  resetSceneHTML(id);
+
+  // Add active (makes it display:flex but opacity:0), then rAF to fade in
+  next.classList.add('active');
   requestAnimationFrame(function() {
     requestAnimationFrame(function() {
-      clone.classList.add('active');
+      next.classList.add('fade-in');
       if (INITS[id]) setTimeout(INITS[id], 60);
     });
   });
@@ -581,20 +619,25 @@ function mainLoop(ts) {
   // Reset on new loop
   if (elapsed < prevElapsed) {
     wipeTriggered = false;
+    activeSceneId = null;
     SCENES.forEach(function(s){ s._active = false; });
+    // Clear all scenes so they're ready for next loop
+    document.querySelectorAll('.scene').forEach(function(s) {
+      s.classList.remove('active', 'fade-in');
+    });
   }
   prevElapsed = elapsed;
 
   // Progress bar
   document.getElementById('pbar').style.width = (elapsed / TOTAL * 100) + '%';
 
-  // Scene switching (smoothed with opacity)
+  // Scene switching
   var cur = null;
   SCENES.forEach(function(s) {
     if (elapsed >= s.from && elapsed < s.to) cur = s.id;
   });
 
-  // Manual wipe trigger at scene 2 transition
+  // Wipe trigger at scene 2 transition
   if (!wipeTriggered && elapsed >= 6500 && elapsed < 7000) {
     wipeTriggered = true;
   }
