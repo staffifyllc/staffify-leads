@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Staffify — Product Ad</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{
+  width:100%;height:100%;
+  background:#000;
+  display:flex;align-items:center;justify-content:center;
+  font-family:-apple-system,'SF Pro Display','Helvetica Neue',Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* ═══ STAGE ═══ */
+.stage{
+  position:relative;
+  width:390px;height:844px;
+  background:#000;
+  overflow:hidden;
+  border-radius:44px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.1),
+    0 50px 150px rgba(0,0,0,0.95);
+}
+
+/* ═══ PROGRESS BAR ═══ */
+#pbar{
+  position:absolute;bottom:0;left:0;height:2px;z-index:100;
+  background:rgba(255,255,255,0.4);
+  width:0%;transition:none;
+}
+
+/* ═══ SCENE ENGINE ═══ */
+.scene{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:70px 60px;
+  opacity:0;
+  transition:opacity 1.0s ease;
+  pointer-events:none;
+  background:#000;
+}
+.scene.active{opacity:1;pointer-events:auto;}
+
+/* ═══ WORD REVEAL ═══ */
+.word{
+  display:inline-block;
+  opacity:0;
+  filter:blur(6px);
+  transform:translateY(8px);
+  transition:opacity 0.55s ease, filter 0.55s ease, transform 0.5s ease;
+}
+.word.visible{
+  opacity:1;
+  filter:blur(0);
+  transform:translateY(0);
+}
+
+/* ═══ STEP BADGE ═══ */
+.step-badge{
+  display:inline-flex;align-items:center;
+  border:1px solid #1abde1;
+  color:#1abde1;
+  border-radius:100px;padding:5px 14px;
+  font-size:10px;font-weight:700;
+  letter-spacing:0.12em;text-transform:uppercase;
+  margin-bottom:22px;
+  opacity:0;
+  transition:opacity 0.6s ease;
+}
+.step-badge.visible{opacity:1;}
+
+/* ═══ SCENE 0: BRAND INTRO ═══ */
+#s0 .brand-unit{
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+  opacity:0;
+  transition:opacity 0.8s ease;
+}
+#s0 .brand-unit.visible{opacity:1;}
+#s0 .logo-row{
+  display:flex;align-items:center;gap:10px;
+}
+#s0 .logo-icon{
+  width:36px;height:36px;border-radius:9px;
+  background:linear-gradient(135deg,#1abde1 0%,#6b8cff 100%);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+#s0 .logo-icon svg{width:20px;height:20px;stroke:#fff;stroke-width:2.5;fill:none;}
+#s0 .wordmark{
+  font-size:26px;font-weight:700;color:#fff;
+  letter-spacing:-0.03em;
+}
+#s0 .brand-tagline{
+  font-size:19px;font-weight:400;
+  color:rgba(255,255,255,0.5);
+  margin-top:4px;
+  opacity:0;
+  transition:opacity 0.8s ease 0.4s;
+}
+#s0 .brand-tagline.visible{opacity:1;}
+
+/* ═══ SCENE 1: THE PROBLEM ═══ */
+#s1 .prob-headline{
+  font-size:72px;font-weight:700;line-height:1.0;
+  color:#fff;text-align:center;letter-spacing:-0.04em;
+  margin-bottom:22px;
+}
+#s1 .prob-sub{
+  font-size:18px;font-weight:400;
+  color:rgba(255,255,255,0.45);
+  text-align:center;line-height:1.6;
+  opacity:0;transition:opacity 0.6s ease;
+}
+#s1 .prob-sub.visible{opacity:1;}
+#s1 .cal-card{
+  margin-top:28px;width:100%;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:18px;
+  padding:18px;
+  opacity:0;transition:opacity 0.6s ease;
+}
+#s1 .cal-card.visible{opacity:1;}
+.cal-header-lbl{
+  font-size:10px;font-weight:600;color:rgba(255,255,255,0.25);
+  letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;
+}
+.cal-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:6px;
+}
+.cal-col-inner{display:flex;flex-direction:column;gap:5px;}
+.cal-day-lbl{
+  font-size:9px;font-weight:600;color:rgba(255,255,255,0.2);
+  text-align:center;letter-spacing:0.06em;margin-bottom:2px;
+}
+.cal-slot{
+  height:32px;
+  background:rgba(255,255,255,0.02);
+  border:1px dashed rgba(255,255,255,0.06);
+  border-radius:7px;
+}
+.cal-no-meetings{
+  font-size:11px;color:rgba(255,255,255,0.18);
+  text-align:center;margin-top:12px;font-style:italic;
+}
+
+/* ═══ SCENE 2: THE TURN ═══ */
+#s2 .turn-headline{
+  font-size:72px;font-weight:700;line-height:1.0;
+  color:#fff;text-align:center;letter-spacing:-0.04em;
+  margin-bottom:0;
+}
+#s2 .turn-divider{
+  width:0;height:2px;
+  background:#fff;
+  border-radius:2px;
+  margin:20px auto 20px;
+  transition:width 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+#s2 .turn-divider.visible{width:60%;}
+#s2 .turn-sub{
+  font-size:17px;font-weight:400;
+  color:rgba(255,255,255,0.45);
+  text-align:center;line-height:1.6;
+  opacity:0;transition:opacity 0.6s ease;
+}
+#s2 .turn-sub.visible{opacity:1;}
+
+/* ═══ SCENE 3: LIST BUILDING ═══ */
+#s3{padding:60px 40px;}
+#s3 .list-headline{
+  font-size:44px;font-weight:700;line-height:1.05;
+  color:#fff;text-align:center;letter-spacing:-0.03em;
+  margin-bottom:18px;
+}
+.contact-list{
+  width:100%;
+  display:flex;flex-direction:column;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:16px;
+  overflow:hidden;
+}
+.cr{
+  display:flex;align-items:center;gap:11px;
+  padding:11px 14px;
+  opacity:0;transform:translateY(6px);
+  transition:opacity 0.4s ease, transform 0.4s ease;
+}
+.cr+.cr{border-top:1px solid rgba(255,255,255,0.05);}
+.cr.show{opacity:1;transform:translateY(0);}
+.cr-av{
+  width:34px;height:34px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;flex-shrink:0;
+}
+.cr-info{flex:1;min-width:0;}
+.cr-name{font-size:13px;font-weight:600;color:#fff;}
+.cr-meta{font-size:10px;color:rgba(255,255,255,0.38);margin-top:1px;}
+.cr-check{
+  width:18px;height:18px;border-radius:50%;
+  background:rgba(52,211,153,0.15);
+  border:1px solid rgba(52,211,153,0.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:8px;color:#34d399;flex-shrink:0;
+}
+.list-counter{
+  text-align:center;margin-top:12px;
+  font-size:12px;color:rgba(255,255,255,0.4);
+  opacity:0;transition:opacity 0.4s ease;
+}
+.list-counter.show{opacity:1;}
+
+/* ═══ SCENE 4: SEQUENCES ═══ */
+#s4{padding:60px 40px;}
+#s4 .seq-headline{
+  font-size:42px;font-weight:700;line-height:1.05;
+  color:#fff;text-align:center;letter-spacing:-0.03em;
+  margin-bottom:20px;
+}
+.seq-timeline{
+  width:100%;margin-top:4px;
+  opacity:0;transition:opacity 0.5s ease;
+}
+.seq-timeline.visible{opacity:1;}
+.seq-row{
+  display:flex;align-items:center;
+}
+.seq-node{display:flex;flex-direction:column;align-items:center;gap:5px;}
+.seq-dot{
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(255,255,255,0.04);
+  border:1.5px solid rgba(255,255,255,0.1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:700;color:rgba(255,255,255,0.2);
+  transition:all 0.4s ease;
+}
+.seq-dot.lit{
+  background:rgba(26,189,225,0.15);
+  border-color:#1abde1;color:#1abde1;
+  box-shadow:0 0 10px rgba(26,189,225,0.4);
+}
+.seq-dot.done{
+  background:#fff;
+  border-color:#fff;color:#000;
+}
+.seq-day{font-size:8px;color:rgba(255,255,255,0.25);letter-spacing:0.03em;}
+.seq-connector{
+  flex:1;height:1px;
+  background:rgba(255,255,255,0.07);
+  transition:background 0.4s;
+}
+.seq-connector.done{background:rgba(255,255,255,0.4);}
+.emails-list{
+  width:100%;margin-top:16px;
+  display:flex;flex-direction:column;gap:6px;
+}
+.email-row{
+  display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px;padding:9px 12px;
+  opacity:0;transform:translateY(6px);
+  transition:opacity 0.35s,transform 0.35s ease;
+}
+.email-row.show{opacity:1;transform:translateY(0);}
+.email-av{
+  width:28px;height:28px;border-radius:7px;
+  font-size:10px;font-weight:700;color:#fff;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.email-to{font-size:11px;color:rgba(255,255,255,0.45);flex:1;}
+.email-to strong{color:#fff;font-weight:600;}
+.email-tag{
+  font-size:9px;font-weight:700;
+  padding:2px 8px;border-radius:100px;
+}
+.email-tag.sent{
+  background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.6);
+  border:1px solid rgba(255,255,255,0.12);
+}
+.email-tag.reply{
+  background:rgba(52,211,153,0.1);color:#34d399;
+  border:1px solid rgba(52,211,153,0.2);
+}
+.reply-rate{
+  text-align:center;margin-top:12px;
+  font-size:12px;color:rgba(255,255,255,0.4);
+  opacity:0;transition:opacity 0.4s;
+}
+.reply-rate.show{opacity:1;}
+
+/* ═══ SCENE 5: RESULTS ═══ */
+#s5 .big-num{
+  font-size:96px;font-weight:800;
+  color:#fff;
+  letter-spacing:-0.055em;
+  line-height:1;
+  text-align:center;
+}
+#s5 .result-words{
+  font-size:26px;font-weight:700;
+  color:#fff;text-align:center;letter-spacing:-0.02em;
+  margin-top:10px;
+}
+#s5 .result-detail{
+  font-size:15px;font-weight:400;
+  color:rgba(255,255,255,0.45);
+  text-align:center;margin-top:8px;
+  opacity:0;transition:opacity 0.6s ease;
+}
+#s5 .result-detail.visible{opacity:1;}
+#s5 .stats-trio{
+  display:flex;gap:0;margin-top:28px;width:100%;
+  opacity:0;transition:opacity 0.6s ease;
+}
+#s5 .stats-trio.visible{opacity:1;}
+.trio-item{flex:1;text-align:center;padding:0 4px;}
+.trio-item+.trio-item{border-left:1px solid rgba(255,255,255,0.08);}
+.trio-n{font-size:18px;font-weight:800;color:#fff;letter-spacing:-0.02em;}
+.trio-l{font-size:9px;color:rgba(255,255,255,0.3);margin-top:3px;line-height:1.3;}
+
+/* ═══ SCENE 6: GUARANTEE ═══ */
+#s6 .guar-line{
+  font-size:56px;font-weight:700;
+  color:#fff;text-align:center;letter-spacing:-0.04em;
+  line-height:1.0;
+  display:block;
+  margin-bottom:2px;
+}
+#s6 .guar-line.cyan{color:#1abde1;}
+#s6 .guar-sub{
+  font-size:16px;font-weight:400;
+  color:rgba(255,255,255,0.45);
+  text-align:center;margin-top:20px;line-height:1.6;
+  opacity:0;transition:opacity 0.6s ease;
+}
+#s6 .guar-sub.visible{opacity:1;}
+
+/* ═══ SCENE 7: CTA ═══ */
+#s7 .cta-logo-row{
+  display:flex;align-items:center;gap:10px;justify-content:center;
+  margin-bottom:18px;
+  opacity:0;transition:opacity 0.8s ease;
+}
+#s7 .cta-logo-row.visible{opacity:1;}
+#s7 .cta-logo-icon{
+  width:36px;height:36px;border-radius:9px;
+  background:linear-gradient(135deg,#1abde1 0%,#6b8cff 100%);
+  display:flex;align-items:center;justify-content:center;
+}
+#s7 .cta-logo-icon svg{width:20px;height:20px;stroke:#fff;stroke-width:2.5;fill:none;}
+#s7 .cta-wordmark{
+  font-size:26px;font-weight:700;color:#fff;letter-spacing:-0.03em;
+}
+#s7 .cta-url{
+  font-size:28px;font-weight:700;
+  color:#1abde1;text-align:center;letter-spacing:-0.01em;
+  opacity:0;transition:opacity 0.8s ease 0.2s;
+}
+#s7 .cta-url.visible{opacity:1;}
+#s7 .cta-start{
+  font-size:14px;font-weight:400;
+  color:rgba(255,255,255,0.4);
+  text-align:center;margin-top:8px;
+  opacity:0;transition:opacity 0.8s ease 0.4s;
+}
+#s7 .cta-start.visible{opacity:1;}
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+
+  <!-- Progress bar -->
+  <div id="pbar"></div>
+
+  <!-- ══════════════════════════════
+       SCENE 0 — BRAND INTRO
+  ══════════════════════════════ -->
+  <div class="scene" id="s0">
+    <div class="brand-unit" id="s0-unit">
+      <div class="logo-row">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <div class="wordmark">Staffify</div>
+      </div>
+    </div>
+    <div class="brand-tagline" id="s0-tagline">Done-for-you B2B outreach.</div>
+  </div>
+
+  <!-- ══════════════════════════════
+       SCENE 1 — THE PROBLEM
+  ══════════════════════════════ -->
+  <div class="scene" id="s1">
+    <div class="prob-headline" id="s1-headline">Your pipeline ran dry.</div>
+    <div class="prob-sub" id="s1-sub">Cold calls. Manual prospecting. Zero consistency.</div>
+    <div class="cal-card" id="s1-cal">
+      <div class="cal-header-lbl">This Week's Meetings</div>
+      <div class="cal-grid">
+        <div class="cal-col-inner">
+          <div class="cal-day-lbl">MON</div>
+          <div class="cal-slot"></div>
+          <div class="cal-slot"></div>
+        </div>
+        <div class="cal-col-inner">
+          <div class="cal-day-lbl">TUE</div>
+          <div class="cal-slot"></div>
+          <div class="cal-slot"></div>
+        </div>
+        <div class="cal-col-inner">
+          <div class="cal-day-lbl">WED</div>
+          <div class="cal-slot"></div>
+          <div class="cal-slot"></div>
+        </div>
+        <div class="cal-col-inner">
+          <div class="cal-day-lbl">THU</div>
+          <div class="cal-slot"></div>
+          <div class="cal-slot"></div>
+        </div>
+        <div class="cal-col-inner">
+          <div class="cal-day-lbl">FRI</div>
+          <div class="cal-slot"></div>
+          <div class="cal-slot"></div>
+        </div>
+      </div>
+      <div class="cal-no-meetings">— No meetings this week —</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       SCENE 2 — THE TURN
+  ══════════════════════════════ -->
+  <div class="scene" id="s2">
+    <div class="turn-headline" id="s2-headline">We change that.</div>
+    <div class="turn-divider" id="s2-divider"></div>
+    <div class="turn-sub" id="s2-sub">Staffify's automated outreach system.</div>
+  </div>
+
+  <!-- ══════════════════════════════
+       SCENE 3 — LIST BUILDING
+  ══════════════════════════════ -->
+  <div class="scene" id="s3">
+    <div class="step-badge" id="s3-badge">Step 1 of 3</div>
+    <div class="list-headline" id="s3-headline">1,500 verified prospects. Found for you.</div>
+    <div class="contact-list">
+      <div class="cr" id="cr0">
+        <div class="cr-av" style="background:rgba(26,189,225,0.12);color:#1abde1;">JM</div>
+        <div class="cr-info">
+          <div class="cr-name">Jessica Martinez</div>
+          <div class="cr-meta">Owner · Evergreen Grounds · Austin, TX</div>
+        </div>
+        <div class="cr-check">✓</div>
+      </div>
+      <div class="cr" id="cr1">
+        <div class="cr-av" style="background:rgba(107,140,255,0.12);color:#7ba8ff;">MT</div>
+        <div class="cr-info">
+          <div class="cr-name">Mike Torres</div>
+          <div class="cr-meta">President · ProClimate HVAC · Denver, CO</div>
+        </div>
+        <div class="cr-check">✓</div>
+      </div>
+      <div class="cr" id="cr2">
+        <div class="cr-av" style="background:rgba(52,211,153,0.12);color:#34d399;">SR</div>
+        <div class="cr-info">
+          <div class="cr-name">Sarah Rodriguez</div>
+          <div class="cr-meta">GM · Sunrise Landscaping · Phoenix, AZ</div>
+        </div>
+        <div class="cr-check">✓</div>
+      </div>
+      <div class="cr" id="cr3">
+        <div class="cr-av" style="background:rgba(251,146,60,0.12);color:#fb923c;">DK</div>
+        <div class="cr-info">
+          <div class="cr-name">David Kim</div>
+          <div class="cr-meta">CEO · Peak Roofing Co. · Seattle, WA</div>
+        </div>
+        <div class="cr-check">✓</div>
+      </div>
+    </div>
+    <div class="list-counter" id="list-counter">1,500+ contacts verified</div>
+  </div>
+
+  <!-- ══════════════════════════════
+       SCENE 4 — SEQUENCES
+  ══════════════════════════════ -->
+  <div class="scene" id="s4">
+    <div class="step-badge" id="s4-badge">Step 2 of 3</div>
+    <div class="seq-headline" id="s4-headline">7 touchpoints. Zero effort from you.</div>
+    <div class="seq-timeline" id="s4-timeline">
+      <div class="seq-row">
+        <div class="seq-node">
+          <div class="seq-dot" id="sd0">1</div>
+          <div class="seq-day">D1</div>
+        </div>
+        <div class="seq-connector" id="sc0"></div>
+        <div class="seq-node">
+          <div class="seq-dot" id="sd1">2</div>
+          <div class="seq-day">D3</div>
+        </div>
+        <div class="seq-connector" id="sc1"></div>
+        <div class="seq-node">
+          <div class="seq-dot" id="sd2">3</div>
+          <div class="seq-day">D7</div>
+        </div>
+        <div class="seq-connector" id="sc2"></div>
+        <div class="seq-node">
+          <div class="seq-dot" id="sd3">4</div>
+          <div class="seq-day">D12</div>
+        </div>
+        <div class="seq-connector" id="sc3"></div>
+        <div class="seq-node">
+          <div class="seq-dot" id="sd4">5</div>
+          <div class="seq-day">D18</div>
+        </div>
+        <div class="seq-connector" id="sc4"></div>
+        <div class="seq-node">
+          <div class="seq-dot" id="sd5">6</div>
+          <div class="seq-day">D22</div>
+        </div>
+        <div class="seq-connector" id="sc5"></div>
+        <div class="seq-node">
+          <div class="seq-dot" id="sd6">7</div>
+          <div class="seq-day">D28</div>
+        </div>
+      </div>
+    </div>
+    <div class="emails-list">
+      <div class="email-row" id="er0">
+        <div class="email-av" style="background:rgba(26,189,225,0.12);color:#1abde1;">JM</div>
+        <div class="email-to">To: <strong>Jessica Martinez</strong></div>
+        <div class="email-tag sent">Sent ✓</div>
+      </div>
+      <div class="email-row" id="er1">
+        <div class="email-av" style="background:rgba(52,211,153,0.12);color:#34d399;">SR</div>
+        <div class="email-to">To: <strong>Sarah Rodriguez</strong></div>
+        <div class="email-tag reply">↩ Replied!</div>
+      </div>
+    </div>
+    <div class="reply-rate" id="reply-rate">4.1% avg reply rate</div>
+  </div>
+
+  <!-- ══════════════════════════════
+       SCENE 5 — RESULTS
+  ══════════════════════════════ -->
+  <div class="scene" id="s5">
+    <div class="big-num" id="s5-num">0</div>
+    <div class="result-words" id="s5-words">qualified meetings booked.</div>
+    <div class="result-detail" id="s5-detail">First 28 days. Evergreen Grounds Landscaping.</div>
+    <div class="stats-trio" id="s5-trio">
+      <div class="trio-item">
+        <div class="trio-n">9.3×</div>
+        <div class="trio-l">ROI</div>
+      </div>
+      <div class="trio-item">
+        <div class="trio-n">4.1%</div>
+        <div class="trio-l">Reply Rate</div>
+      </div>
+      <div class="trio-item">
+        <div class="trio-n">$4.2M</div>
+        <div class="trio-l">Revenue</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       SCENE 6 — GUARANTEE
+  ══════════════════════════════ -->
+  <div class="scene" id="s6">
+    <span class="guar-line" id="s6-l1">10 qualified meetings.</span>
+    <span class="guar-line" id="s6-l2">In 30 days.</span>
+    <span class="guar-line cyan" id="s6-l3">Guaranteed.</span>
+    <div class="guar-sub" id="s6-sub">Or we keep working until you do. Free.</div>
+  </div>
+
+  <!-- ══════════════════════════════
+       SCENE 7 — CTA
+  ══════════════════════════════ -->
+  <div class="scene" id="s7">
+    <div class="cta-logo-row" id="s7-logo">
+      <div class="cta-logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
+      <div class="cta-wordmark">Staffify</div>
+    </div>
+    <div class="cta-url" id="s7-url">gostaffify.com</div>
+    <div class="cta-start" id="s7-start">Start your campaign today &rarr;</div>
+  </div>
+
+</div><!-- /stage -->
+
+<script>
+// ═══════════════════════════════════════════
+//  WORD-BY-WORD REVEAL
+// ═══════════════════════════════════════════
+function revealWords(containerEl, baseDelay, wordDelay) {
+  var text = containerEl.textContent.trim();
+  var words = text.split(' ');
+  containerEl.innerHTML = words.map(function(w) {
+    return '<span class="word">' + w + '</span>';
+  }).join(' ');
+  containerEl.querySelectorAll('.word').forEach(function(w, i) {
+    setTimeout(function() { w.classList.add('visible'); }, baseDelay + i * wordDelay);
+  });
+}
+
+// ═══════════════════════════════════════════
+//  TIMELINE  (28 seconds, loops)
+// ═══════════════════════════════════════════
+var TOTAL = 28000;
+
+var TIMELINE = [
+  { id:'s0', from:0,     to:2800  },
+  { id:'s1', from:2200,  to:6400  },
+  { id:'s2', from:5600,  to:8600  },
+  { id:'s3', from:7900,  to:14000 },
+  { id:'s4', from:13200, to:19200 },
+  { id:'s5', from:18500, to:23200 },
+  { id:'s6', from:22600, to:26000 },
+  { id:'s7', from:25200, to:28000 },
+];
+
+var CALLBACKS = {
+  s0: initS0,
+  s1: initS1,
+  s2: initS2,
+  s3: initS3,
+  s4: initS4,
+  s5: initS5,
+  s6: initS6,
+  s7: initS7,
+};
+
+var t0 = null;
+var curId = null;
+
+function tick(ts) {
+  if (!t0) t0 = ts;
+  var elapsed = (ts - t0) % TOTAL;
+
+  // Progress bar
+  document.getElementById('pbar').style.width = (elapsed / TOTAL * 100) + '%';
+
+  // Resolve active scene
+  var next = null;
+  for (var i = 0; i < TIMELINE.length; i++) {
+    var s = TIMELINE[i];
+    if (elapsed >= s.from && elapsed < s.to) next = s.id;
+  }
+
+  if (next && next !== curId) {
+    switchScene(next);
+    curId = next;
+  }
+
+  requestAnimationFrame(tick);
+}
+
+function switchScene(id) {
+  document.querySelectorAll('.scene.active').forEach(function(el) {
+    el.classList.remove('active');
+  });
+
+  var old = document.getElementById(id);
+  if (!old) return;
+  var fresh = old.cloneNode(true);
+  old.parentNode.replaceChild(fresh, old);
+
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      fresh.classList.add('active');
+      if (CALLBACKS[id]) setTimeout(function() { CALLBACKS[id](); }, 60);
+    });
+  });
+}
+
+// ═══ S0: Brand ═══
+function initS0() {
+  var unit = document.getElementById('s0-unit');
+  var tagline = document.getElementById('s0-tagline');
+  if (unit) unit.classList.add('visible');
+  if (tagline) tagline.classList.add('visible');
+}
+
+// ═══ S1: Problem ═══
+function initS1() {
+  var h = document.getElementById('s1-headline');
+  var sub = document.getElementById('s1-sub');
+  var cal = document.getElementById('s1-cal');
+  if (h) revealWords(h, 0, 90);
+  setTimeout(function() { if (sub) sub.classList.add('visible'); }, 600);
+  setTimeout(function() { if (cal) cal.classList.add('visible'); }, 1500);
+}
+
+// ═══ S2: The Turn ═══
+function initS2() {
+  var h = document.getElementById('s2-headline');
+  var div = document.getElementById('s2-divider');
+  var sub = document.getElementById('s2-sub');
+  if (h) revealWords(h, 0, 90);
+  setTimeout(function() { if (div) div.classList.add('visible'); }, 500);
+  setTimeout(function() { if (sub) sub.classList.add('visible'); }, 800);
+}
+
+// ═══ S3: List Building ═══
+function initS3() {
+  var badge = document.getElementById('s3-badge');
+  var h = document.getElementById('s3-headline');
+  if (badge) badge.classList.add('visible');
+  if (h) revealWords(h, 100, 80);
+
+  ['cr0','cr1','cr2','cr3'].forEach(function(id, i) {
+    setTimeout(function() {
+      var el = document.getElementById(id);
+      if (el) el.classList.add('show');
+    }, 800 + i * 300);
+  });
+  setTimeout(function() {
+    var el = document.getElementById('list-counter');
+    if (el) el.classList.add('show');
+  }, 2400);
+}
+
+// ═══ S4: Sequences ═══
+function initS4() {
+  var badge = document.getElementById('s4-badge');
+  var h = document.getElementById('s4-headline');
+  var timeline = document.getElementById('s4-timeline');
+  if (badge) badge.classList.add('visible');
+  if (h) revealWords(h, 100, 80);
+  setTimeout(function() { if (timeline) timeline.classList.add('visible'); }, 400);
+
+  var dots = ['sd0','sd1','sd2','sd3','sd4','sd5','sd6'];
+  var cons = ['sc0','sc1','sc2','sc3','sc4','sc5'];
+
+  dots.forEach(function(id, i) {
+    setTimeout(function() {
+      var d = document.getElementById(id);
+      if (!d) return;
+      if (i > 0) {
+        var prev = document.getElementById(dots[i-1]);
+        if (prev) { prev.classList.remove('lit'); prev.classList.add('done'); }
+        var c = document.getElementById(cons[i-1]);
+        if (c) c.classList.add('done');
+      }
+      d.classList.add('lit');
+    }, 700 + i * 450);
+  });
+
+  setTimeout(function() {
+    var e0 = document.getElementById('er0');
+    if (e0) e0.classList.add('show');
+  }, 3900);
+  setTimeout(function() {
+    var e1 = document.getElementById('er1');
+    if (e1) e1.classList.add('show');
+  }, 4400);
+  setTimeout(function() {
+    var r = document.getElementById('reply-rate');
+    if (r) r.classList.add('show');
+  }, 5000);
+}
+
+// ═══ S5: Results ═══
+function initS5() {
+  var numEl = document.getElementById('s5-num');
+  var wordsEl = document.getElementById('s5-words');
+  var detailEl = document.getElementById('s5-detail');
+  var trioEl = document.getElementById('s5-trio');
+
+  // Count up to 14
+  if (numEl) {
+    numEl.textContent = '0';
+    var n = 0;
+    var target = 14;
+    var stepTime = 1000 / target;
+    setTimeout(function() {
+      var iv = setInterval(function() {
+        n++;
+        numEl.textContent = n;
+        if (n >= target) clearInterval(iv);
+      }, stepTime);
+    }, 300);
+  }
+
+  // Word reveal on "qualified meetings booked."
+  if (wordsEl) revealWords(wordsEl, 1400, 90);
+
+  setTimeout(function() { if (detailEl) detailEl.classList.add('visible'); }, 2200);
+  setTimeout(function() { if (trioEl) trioEl.classList.add('visible'); }, 2800);
+}
+
+// ═══ S6: Guarantee ═══
+function initS6() {
+  var l1 = document.getElementById('s6-l1');
+  var l2 = document.getElementById('s6-l2');
+  var l3 = document.getElementById('s6-l3');
+  var sub = document.getElementById('s6-sub');
+
+  // Set all lines invisible to start, then reveal word by word
+  if (l1) { l1.style.opacity = '0'; revealWords(l1, 0, 90); }
+  if (l2) { l2.style.opacity = '0'; revealWords(l2, 600, 90); }
+  if (l3) { l3.style.opacity = '0'; revealWords(l3, 1200, 90); }
+
+  // Override word opacity for lines, since lines themselves need to fade in too
+  // Actually: lines show because words become visible. Ensure line opacity=1
+  if (l1) setTimeout(function() { l1.style.opacity = '1'; }, 0);
+  if (l2) setTimeout(function() { l2.style.opacity = '1'; }, 600);
+  if (l3) setTimeout(function() { l3.style.opacity = '1'; }, 1200);
+
+  setTimeout(function() { if (sub) sub.classList.add('visible'); }, 2000);
+}
+
+// ═══ S7: CTA ═══
+function initS7() {
+  var logo = document.getElementById('s7-logo');
+  var url = document.getElementById('s7-url');
+  var start = document.getElementById('s7-start');
+  if (logo) logo.classList.add('visible');
+  if (url) url.classList.add('visible');
+  if (start) start.classList.add('visible');
+}
+
+// ═══ Kick off ═══
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>
