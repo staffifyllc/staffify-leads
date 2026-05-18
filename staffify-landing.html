@@ -2549,6 +2549,390 @@
             .faq-section { padding: 72px 20px; }
             .faq-q { font-size: 15px; padding: 18px 0; }
         }
+
+        /* ══════════════════════════════════════════════
+           AD ANIMATION SHOWCASE
+        ══════════════════════════════════════════════ */
+        .ad-showcase {
+            background: #06060e;
+            padding: 120px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 80px;
+        }
+        .ad-showcase-left {
+            flex: 1;
+            max-width: 440px;
+        }
+        .ad-showcase-right {
+            flex-shrink: 0;
+        }
+        .ad-showcase-eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+            color: #1abde1;
+            margin-bottom: 16px;
+        }
+        .ad-showcase-headline {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+        .ad-showcase-sub {
+            font-size: 17px;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.65;
+            margin-bottom: 28px;
+        }
+        .ad-bullet {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-top: 14px;
+            font-size: 16px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.5;
+        }
+        .ad-bullet-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(26,189,225,0.15);
+            border: 1px solid rgba(26,189,225,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #1abde1;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Phone shell */
+        .phone-shell {
+            width: 320px;
+            height: 692px;
+            background: #1c1c1e;
+            border-radius: 44px;
+            border: 1.5px solid rgba(255,255,255,0.12);
+            box-shadow:
+                0 0 0 5px #0f0f12,
+                0 0 0 7px rgba(255,255,255,0.05),
+                0 50px 120px rgba(0,0,0,0.8),
+                0 20px 40px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        .phone-screen {
+            position: absolute;
+            inset: 10px;
+            border-radius: 36px;
+            overflow: hidden;
+            background: #000;
+        }
+        .phone-island {
+            position: absolute;
+            top: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 88px;
+            height: 28px;
+            background: #000;
+            border-radius: 14px;
+            z-index: 20;
+        }
+        .phone-stage {
+            width: 390px;
+            height: 844px;
+            transform: scale(0.8205);
+            transform-origin: top left;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+            font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Mini-stage word reveal */
+        .ms-word {
+            display: inline-block;
+            opacity: 0;
+            filter: blur(6px);
+            transform: translateY(8px);
+            transition: opacity 0.55s ease, filter 0.55s ease, transform 0.5s ease;
+        }
+        .ms-word.ms-visible {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
+
+        /* Mini progress bar */
+        .ms-pbar {
+            position: absolute;
+            bottom: 0; left: 0;
+            height: 2px;
+            width: 0%;
+            background: rgba(255,255,255,0.4);
+            z-index: 100;
+        }
+
+        /* Mini scenes */
+        .ms-scene {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 70px 60px;
+            opacity: 0;
+            transition: opacity 1.0s ease;
+            pointer-events: none;
+            background: #000;
+        }
+        .ms-scene.ms-active { opacity: 1; }
+
+        /* MS0: Brand */
+        .ms-brand-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+        .ms-brand-unit.ms-visible { opacity: 1; }
+        .ms-logo-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .ms-logo-icon {
+            width: 36px; height: 36px;
+            border-radius: 9px;
+            background: linear-gradient(135deg, #1abde1 0%, #6b8cff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ms-logo-icon svg { width: 20px; height: 20px; stroke: #fff; stroke-width: 2.5; fill: none; }
+        .ms-wordmark {
+            font-size: 26px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.03em;
+        }
+        .ms-tagline {
+            font-size: 19px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.5);
+            opacity: 0;
+            transition: opacity 0.8s ease 0.4s;
+        }
+        .ms-tagline.ms-visible { opacity: 1; }
+
+        /* MS1: Prospects */
+        .ms-badge {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid #1abde1;
+            color: #1abde1;
+            border-radius: 100px;
+            padding: 5px 14px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .ms-badge.ms-visible { opacity: 1; }
+        .ms-headline {
+            font-size: 44px;
+            font-weight: 700;
+            line-height: 1.0;
+            color: #fff;
+            text-align: center;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+        }
+        .ms-contact-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+        .ms-cr {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 13px;
+            opacity: 0;
+            transform: translateY(5px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .ms-cr + .ms-cr { border-top: 1px solid rgba(255,255,255,0.05); }
+        .ms-cr.ms-show { opacity: 1; transform: translateY(0); }
+        .ms-av {
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        .ms-cr-info { flex: 1; min-width: 0; }
+        .ms-cr-name { font-size: 12px; font-weight: 600; color: #fff; }
+        .ms-cr-meta { font-size: 9px; color: rgba(255,255,255,0.38); margin-top: 1px; }
+        .ms-cr-check {
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            background: rgba(52,211,153,0.15);
+            border: 1px solid rgba(52,211,153,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 7px;
+            color: #34d399;
+            flex-shrink: 0;
+        }
+        .ms-list-counter {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .ms-list-counter.ms-show { opacity: 1; }
+
+        /* MS2: Sequence */
+        .ms-seq-row {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-top: 16px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .ms-seq-row.ms-visible { opacity: 1; }
+        .ms-seq-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        .ms-seq-dot {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.04);
+            border: 1.5px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.2);
+            transition: all 0.4s ease;
+        }
+        .ms-seq-dot.ms-lit {
+            background: rgba(26,189,225,0.15);
+            border-color: #1abde1;
+            color: #1abde1;
+            box-shadow: 0 0 8px rgba(26,189,225,0.4);
+        }
+        .ms-seq-dot.ms-done {
+            background: #fff;
+            border-color: #fff;
+            color: #000;
+        }
+        .ms-seq-day { font-size: 7px; color: rgba(255,255,255,0.25); }
+        .ms-seq-connector {
+            flex: 1;
+            height: 1px;
+            background: rgba(255,255,255,0.07);
+            transition: background 0.4s;
+        }
+        .ms-seq-connector.ms-done { background: rgba(255,255,255,0.4); }
+        .ms-sub {
+            font-size: 18px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.45);
+            text-align: center;
+            line-height: 1.6;
+            margin-top: 14px;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        .ms-sub.ms-visible { opacity: 1; }
+
+        /* MS3: Big number */
+        .ms-big-num {
+            font-size: 96px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.055em;
+            line-height: 1;
+            text-align: center;
+        }
+        .ms-result-words {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            text-align: center;
+            letter-spacing: -0.02em;
+            margin-top: 8px;
+        }
+
+        /* MS4: CTA */
+        .ms-guar-line {
+            font-size: 48px;
+            font-weight: 700;
+            color: #fff;
+            text-align: center;
+            letter-spacing: -0.04em;
+            line-height: 1.0;
+            display: block;
+            margin-bottom: 2px;
+        }
+        .ms-guar-line.ms-cyan { color: #1abde1; }
+        .ms-cta-url {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1abde1;
+            text-align: center;
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+        .ms-cta-url.ms-visible { opacity: 1; }
+
+        @media (max-width: 900px) {
+            .ad-showcase {
+                flex-direction: column;
+                padding: 80px 20px;
+                gap: 48px;
+                text-align: center;
+            }
+            .ad-showcase-left { max-width: 100%; }
+            .ad-bullet { justify-content: flex-start; text-align: left; }
+            .ad-showcase-headline { font-size: 36px; }
+            .phone-shell { width: 280px; height: 606px; }
+            .phone-stage { transform: scale(0.718); }
+        }
     </style>
 </head>
 <body>
@@ -3077,6 +3461,353 @@
         </div>
     </div>
 </section>
+
+<!-- ═══ AD ANIMATION SHOWCASE ═══ -->
+<section id="see-it-live" class="ad-showcase" aria-label="See Staffify in action">
+
+    <!-- Left column: text -->
+    <div class="ad-showcase-left">
+        <div class="ad-showcase-eyebrow">See It In Action</div>
+        <h2 class="ad-showcase-headline">Your calendar fills itself.</h2>
+        <p class="ad-showcase-sub">Watch Staffify build your list, launch your sequences, and book meetings — in real time.</p>
+        <div class="ad-bullet">
+            <div class="ad-bullet-dot">&#10003;</div>
+            <span>1,500 verified prospects found for you</span>
+        </div>
+        <div class="ad-bullet">
+            <div class="ad-bullet-dot">&#10003;</div>
+            <span>7-touch sequence launches automatically</span>
+        </div>
+        <div class="ad-bullet">
+            <div class="ad-bullet-dot">&#10003;</div>
+            <span>Qualified meetings land in your calendar</span>
+        </div>
+    </div>
+
+    <!-- Right column: phone mockup with inline animation -->
+    <div class="ad-showcase-right">
+        <div class="phone-shell">
+            <div class="phone-island"></div>
+            <div class="phone-screen">
+                <div class="phone-stage" id="ms-stage">
+                    <div class="ms-pbar" id="ms-pbar"></div>
+
+                    <!-- MS0: Brand -->
+                    <div class="ms-scene" id="ms0">
+                        <div class="ms-brand-unit" id="ms0-unit">
+                            <div class="ms-logo-row">
+                                <div class="ms-logo-icon">
+                                    <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                                </div>
+                                <div class="ms-wordmark">Staffify</div>
+                            </div>
+                        </div>
+                        <div class="ms-tagline" id="ms0-tagline">Done-for-you B2B outreach.</div>
+                    </div>
+
+                    <!-- MS1: Prospects -->
+                    <div class="ms-scene" id="ms1">
+                        <div class="ms-badge" id="ms1-badge">Step 1 of 3</div>
+                        <div class="ms-headline" id="ms1-headline">1,500 prospects found.</div>
+                        <div class="ms-contact-list">
+                            <div class="ms-cr" id="ms-cr0">
+                                <div class="ms-av" style="background:rgba(26,189,225,0.12);color:#1abde1;">JM</div>
+                                <div class="ms-cr-info">
+                                    <div class="ms-cr-name">Jessica Martinez</div>
+                                    <div class="ms-cr-meta">Owner · Evergreen Grounds · Austin, TX</div>
+                                </div>
+                                <div class="ms-cr-check">&#10003;</div>
+                            </div>
+                            <div class="ms-cr" id="ms-cr1">
+                                <div class="ms-av" style="background:rgba(107,140,255,0.12);color:#7ba8ff;">MT</div>
+                                <div class="ms-cr-info">
+                                    <div class="ms-cr-name">Mike Torres</div>
+                                    <div class="ms-cr-meta">President · ProClimate HVAC · Denver, CO</div>
+                                </div>
+                                <div class="ms-cr-check">&#10003;</div>
+                            </div>
+                            <div class="ms-cr" id="ms-cr2">
+                                <div class="ms-av" style="background:rgba(52,211,153,0.12);color:#34d399;">SR</div>
+                                <div class="ms-cr-info">
+                                    <div class="ms-cr-name">Sarah Rodriguez</div>
+                                    <div class="ms-cr-meta">GM · Sunrise Landscaping · Phoenix, AZ</div>
+                                </div>
+                                <div class="ms-cr-check">&#10003;</div>
+                            </div>
+                            <div class="ms-cr" id="ms-cr3">
+                                <div class="ms-av" style="background:rgba(251,146,60,0.12);color:#fb923c;">DK</div>
+                                <div class="ms-cr-info">
+                                    <div class="ms-cr-name">David Kim</div>
+                                    <div class="ms-cr-meta">CEO · Peak Roofing Co. · Seattle, WA</div>
+                                </div>
+                                <div class="ms-cr-check">&#10003;</div>
+                            </div>
+                        </div>
+                        <div class="ms-list-counter" id="ms-list-counter">1,500+ contacts verified</div>
+                    </div>
+
+                    <!-- MS2: Sequence -->
+                    <div class="ms-scene" id="ms2">
+                        <div class="ms-badge" id="ms2-badge">Step 2 of 3</div>
+                        <div class="ms-headline" id="ms2-headline">7-touch sequence. Automatic.</div>
+                        <div class="ms-seq-row" id="ms2-seq">
+                            <div class="ms-seq-node">
+                                <div class="ms-seq-dot" id="ms-sd0">1</div>
+                                <div class="ms-seq-day">D1</div>
+                            </div>
+                            <div class="ms-seq-connector" id="ms-sc0"></div>
+                            <div class="ms-seq-node">
+                                <div class="ms-seq-dot" id="ms-sd1">2</div>
+                                <div class="ms-seq-day">D3</div>
+                            </div>
+                            <div class="ms-seq-connector" id="ms-sc1"></div>
+                            <div class="ms-seq-node">
+                                <div class="ms-seq-dot" id="ms-sd2">3</div>
+                                <div class="ms-seq-day">D7</div>
+                            </div>
+                            <div class="ms-seq-connector" id="ms-sc2"></div>
+                            <div class="ms-seq-node">
+                                <div class="ms-seq-dot" id="ms-sd3">4</div>
+                                <div class="ms-seq-day">D12</div>
+                            </div>
+                            <div class="ms-seq-connector" id="ms-sc3"></div>
+                            <div class="ms-seq-node">
+                                <div class="ms-seq-dot" id="ms-sd4">5</div>
+                                <div class="ms-seq-day">D18</div>
+                            </div>
+                            <div class="ms-seq-connector" id="ms-sc4"></div>
+                            <div class="ms-seq-node">
+                                <div class="ms-seq-dot" id="ms-sd5">6</div>
+                                <div class="ms-seq-day">D22</div>
+                            </div>
+                            <div class="ms-seq-connector" id="ms-sc5"></div>
+                            <div class="ms-seq-node">
+                                <div class="ms-seq-dot" id="ms-sd6">7</div>
+                                <div class="ms-seq-day">D28</div>
+                            </div>
+                        </div>
+                        <div class="ms-sub" id="ms2-sub">Zero effort from you.</div>
+                    </div>
+
+                    <!-- MS3: Results -->
+                    <div class="ms-scene" id="ms3">
+                        <div class="ms-big-num" id="ms3-num">0</div>
+                        <div class="ms-result-words" id="ms3-words">qualified meetings booked.</div>
+                    </div>
+
+                    <!-- MS4: Guarantee + CTA -->
+                    <div class="ms-scene" id="ms4">
+                        <span class="ms-guar-line" id="ms4-l1">10 guaranteed.</span>
+                        <span class="ms-guar-line ms-cyan" id="ms4-l2">Or it's free.</span>
+                        <div class="ms-cta-url" id="ms4-url">gostaffify.com</div>
+                    </div>
+
+                </div><!-- /phone-stage -->
+            </div><!-- /phone-screen -->
+        </div><!-- /phone-shell -->
+    </div><!-- /ad-showcase-right -->
+
+</section>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   MINI PHONE ANIMATION — self-contained IIFE
+   All vars prefixed mini_ to avoid global collisions.
+   Uses IntersectionObserver to only run when visible.
+═══════════════════════════════════════════════════════════ */
+(function() {
+    'use strict';
+
+    var mini_TOTAL = 20000;
+    var mini_TIMELINE = [
+        { id: 'ms0', from: 0,     to: 2500  },
+        { id: 'ms1', from: 1800,  to: 8200  },
+        { id: 'ms2', from: 7600,  to: 14200 },
+        { id: 'ms3', from: 13500, to: 17500 },
+        { id: 'ms4', from: 17000, to: 20000 },
+    ];
+
+    var mini_CALLBACKS = {
+        ms0: mini_initS0,
+        ms1: mini_initS1,
+        ms2: mini_initS2,
+        ms3: mini_initS3,
+        ms4: mini_initS4,
+    };
+
+    var mini_t0 = null;
+    var mini_curId = null;
+    var mini_running = false;
+    var mini_rafId = null;
+
+    function mini_revealWords(containerEl, baseDelay, wordDelay) {
+        var text = containerEl.textContent.trim();
+        var words = text.split(' ');
+        containerEl.innerHTML = words.map(function(w) {
+            return '<span class="ms-word">' + w + '</span>';
+        }).join(' ');
+        containerEl.querySelectorAll('.ms-word').forEach(function(w, i) {
+            setTimeout(function() { w.classList.add('ms-visible'); }, baseDelay + i * wordDelay);
+        });
+    }
+
+    function mini_tick(ts) {
+        if (!mini_running) return;
+        if (!mini_t0) mini_t0 = ts;
+        var elapsed = (ts - mini_t0) % mini_TOTAL;
+
+        var pbar = document.getElementById('ms-pbar');
+        if (pbar) pbar.style.width = (elapsed / mini_TOTAL * 100) + '%';
+
+        var next = null;
+        for (var i = 0; i < mini_TIMELINE.length; i++) {
+            var s = mini_TIMELINE[i];
+            if (elapsed >= s.from && elapsed < s.to) next = s.id;
+        }
+
+        if (next && next !== mini_curId) {
+            mini_switchScene(next);
+            mini_curId = next;
+        }
+
+        mini_rafId = requestAnimationFrame(mini_tick);
+    }
+
+    function mini_switchScene(id) {
+        document.querySelectorAll('.ms-scene.ms-active').forEach(function(el) {
+            el.classList.remove('ms-active');
+        });
+
+        var old = document.getElementById(id);
+        if (!old) return;
+        var fresh = old.cloneNode(true);
+        old.parentNode.replaceChild(fresh, old);
+
+        requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+                fresh.classList.add('ms-active');
+                if (mini_CALLBACKS[id]) setTimeout(function() { mini_CALLBACKS[id](); }, 60);
+            });
+        });
+    }
+
+    function mini_initS0() {
+        var unit = document.getElementById('ms0-unit');
+        var tagline = document.getElementById('ms0-tagline');
+        if (unit) unit.classList.add('ms-visible');
+        if (tagline) tagline.classList.add('ms-visible');
+    }
+
+    function mini_initS1() {
+        var badge = document.getElementById('ms1-badge');
+        var h = document.getElementById('ms1-headline');
+        if (badge) badge.classList.add('ms-visible');
+        if (h) mini_revealWords(h, 100, 85);
+
+        ['ms-cr0','ms-cr1','ms-cr2','ms-cr3'].forEach(function(id, i) {
+            setTimeout(function() {
+                var el = document.getElementById(id);
+                if (el) el.classList.add('ms-show');
+            }, 700 + i * 320);
+        });
+        setTimeout(function() {
+            var el = document.getElementById('ms-list-counter');
+            if (el) el.classList.add('ms-show');
+        }, 2200);
+    }
+
+    function mini_initS2() {
+        var badge = document.getElementById('ms2-badge');
+        var h = document.getElementById('ms2-headline');
+        var seq = document.getElementById('ms2-seq');
+        var sub = document.getElementById('ms2-sub');
+        if (badge) badge.classList.add('ms-visible');
+        if (h) mini_revealWords(h, 100, 85);
+        setTimeout(function() { if (seq) seq.classList.add('ms-visible'); }, 400);
+
+        var dots = ['ms-sd0','ms-sd1','ms-sd2','ms-sd3','ms-sd4','ms-sd5','ms-sd6'];
+        var cons  = ['ms-sc0','ms-sc1','ms-sc2','ms-sc3','ms-sc4','ms-sc5'];
+        dots.forEach(function(id, i) {
+            setTimeout(function() {
+                var d = document.getElementById(id);
+                if (!d) return;
+                if (i > 0) {
+                    var prev = document.getElementById(dots[i-1]);
+                    if (prev) { prev.classList.remove('ms-lit'); prev.classList.add('ms-done'); }
+                    var c = document.getElementById(cons[i-1]);
+                    if (c) c.classList.add('ms-done');
+                }
+                d.classList.add('ms-lit');
+            }, 700 + i * 450);
+        });
+        setTimeout(function() { if (sub) sub.classList.add('ms-visible'); }, 4000);
+    }
+
+    function mini_initS3() {
+        var numEl = document.getElementById('ms3-num');
+        var wordsEl = document.getElementById('ms3-words');
+        if (numEl) {
+            numEl.textContent = '0';
+            var n = 0;
+            var target = 14;
+            var stepTime = 1000 / target;
+            setTimeout(function() {
+                var iv = setInterval(function() {
+                    n++;
+                    numEl.textContent = n;
+                    if (n >= target) clearInterval(iv);
+                }, stepTime);
+            }, 300);
+        }
+        if (wordsEl) mini_revealWords(wordsEl, 1400, 90);
+    }
+
+    function mini_initS4() {
+        var l1 = document.getElementById('ms4-l1');
+        var l2 = document.getElementById('ms4-l2');
+        var url = document.getElementById('ms4-url');
+        if (l1) { l1.style.opacity = '1'; mini_revealWords(l1, 0, 90); }
+        if (l2) { l2.style.opacity = '0'; setTimeout(function() { l2.style.opacity = '1'; mini_revealWords(l2, 0, 90); }, 600); }
+        setTimeout(function() { if (url) url.classList.add('ms-visible'); }, 1400);
+    }
+
+    function mini_start() {
+        if (mini_running) return;
+        mini_running = true;
+        mini_t0 = null;
+        mini_curId = null;
+        mini_rafId = requestAnimationFrame(mini_tick);
+    }
+
+    function mini_stop() {
+        mini_running = false;
+        if (mini_rafId) {
+            cancelAnimationFrame(mini_rafId);
+            mini_rafId = null;
+        }
+    }
+
+    // Use IntersectionObserver to start/stop based on visibility
+    var stage = document.getElementById('ms-stage');
+    if (!stage) return;
+
+    if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    mini_start();
+                } else {
+                    mini_stop();
+                }
+            });
+        }, { threshold: 0.1 });
+        observer.observe(stage);
+    } else {
+        // Fallback: just start
+        mini_start();
+    }
+})();
+</script>
 
 <!-- ═══ PRICING ═══ -->
 <section id="pricing" class="pricing-section" aria-labelledby="pricing-heading">
