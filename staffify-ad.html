@@ -657,6 +657,18 @@ function mainLoop(ts) {
 //  SCENE INIT CALLBACKS
 // ════════════════════════════════════════════
 
+// Helper: split headline HTML on <br>, strip residual tags, wrap each word in .word spans
+function buildWordSpans(el) {
+  var lines = el.innerHTML.split(/<br\s*\/?>/i);
+  el.innerHTML = lines.map(function(line) {
+    var clean = line.replace(/<[^>]+>/g, '').trim();
+    if (!clean) return '';
+    return clean.split(/\s+/).map(function(w) {
+      return '<span class="word">' + w + '</span>';
+    }).join(' ');
+  }).filter(Boolean).join('<br>');
+}
+
 function initS0() {
   var logo = document.getElementById('s0-logo');
   var sub = document.getElementById('s0-sub');
@@ -672,14 +684,14 @@ function initS1() {
   // Word-by-word headline
   var head = document.getElementById('s1-head');
   if (head) {
-    var words = head.innerHTML.split(/<br>|(\s+)/).filter(function(w){ return w && w.trim(); });
-    // Reset
-    head.innerHTML = words.map(function(w, i) {
-      if (w === '\n' || !w.trim()) return '<br>';
-      return '<span class="word" style="transition-delay:' + (i*100) + 'ms">' + w + '</span> ';
-    }).join('');
+    buildWordSpans(head);
     setTimeout(function(){
-      head.querySelectorAll('.word').forEach(function(w){ w.classList.add('v'); });
+      var delay = 0;
+      head.querySelectorAll('.word').forEach(function(w){
+        w.style.transitionDelay = delay + 'ms';
+        setTimeout(function(){ w.classList.add('v'); }, delay);
+        delay += 100;
+      });
     }, 100);
   }
   var sub = document.getElementById('s1-sub');
@@ -705,13 +717,7 @@ function initS3() {
   if (pill) setTimeout(function(){ pill.classList.add('v'); }, 80);
   var head = document.getElementById('s3-head');
   if (head) {
-    var txt = head.textContent.trim();
-    var lines = txt.split('\n').map(function(l){ return l.trim(); });
-    head.innerHTML = lines.map(function(line){
-      return line.split(' ').map(function(w, i){
-        return '<span class="word">' + w + '</span>';
-      }).join(' ');
-    }).join('<br>');
+    buildWordSpans(head);
     setTimeout(function(){
       var delay = 0;
       head.querySelectorAll('.word').forEach(function(w){
@@ -740,8 +746,7 @@ function initS4() {
   if (pill) setTimeout(function(){ pill.classList.add('v'); }, 80);
   var head = document.getElementById('s4-head');
   if (head) {
-    var words = head.textContent.trim().split(/\s+/);
-    head.innerHTML = words.map(function(w){ return '<span class="word">' + w + '</span>'; }).join(' ');
+    buildWordSpans(head);
     setTimeout(function(){
       var delay = 0;
       head.querySelectorAll('.word').forEach(function(w){
